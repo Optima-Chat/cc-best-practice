@@ -62,10 +62,50 @@
 
 **画图：** 要求 Claude Code 用 Mermaid 画架构图、数据流图、时序图、ER 图。Mermaid 语法简单，渲染效果清晰美观，易于理解和维护。GitHub 和大多数 Markdown 编辑器原生支持。把图保存到 docs 目录作为技术文档。
 
-示例：
+示例请求：
 ```
 "用 Mermaid 画出系统架构图，展示各模块间的调用关系"
 "画一个用户登录的时序图，展示前端、后端、数据库的交互流程"
+```
+
+架构图示例（Claude Code 开发流程）：
+```mermaid
+graph TB
+    User[开发者]
+    CC[Claude Code]
+    Docs[docs/ 技术文档]
+    Code[项目代码]
+
+    User -->|1. 提出需求| CC
+    CC -->|2. 讨论方案| User
+    User -->|3. 确认方案| CC
+    CC -->|4. 整理文档| Docs
+    CC -->|5. 读取方案| Docs
+    CC -->|6. 实现代码| Code
+    Docs -.->|跨 session 上下文| CC
+```
+
+时序图示例（技术方案讨论流程）：
+```mermaid
+sequenceDiagram
+    participant User as 开发者
+    participant CC as Claude Code
+    participant Docs as docs/
+
+    User->>CC: 我想实现 XX 功能，先讨论技术方案
+    CC->>User: 请提供详细需求
+    User->>CC: 需求：A、B、C
+    CC->>User: 给出技术方案（架构、模块、数据流）
+    User->>CC: 为什么用 Redis？
+    CC->>User: 解释原因和优势
+    User->>CC: 行业最佳实践是什么？
+    CC->>User: 提供业界方案参考
+    User->>CC: 理解了，请整理文档保存到 @docs
+    CC->>Docs: 保存技术方案文档
+    CC->>User: 文档已保存，开始实现？
+    User->>CC: 开始实现
+    CC->>Docs: 读取技术方案
+    CC->>User: 代码实现完成
 ```
 
 **多方案对比：** "给出三种方案：最简单的、性能最优的、最灵活的。分析优缺点。" 权衡利弊后选择，把选型理由记录到 docs。
