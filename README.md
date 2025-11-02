@@ -1,5 +1,10 @@
 # Claude Code 最佳实践
 
+[![GitHub stars](https://img.shields.io/github/stars/Optima-Chat/cc-best-practice?style=social)](https://github.com/Optima-Chat/cc-best-practice/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Optima-Chat/cc-best-practice?style=social)](https://github.com/Optima-Chat/cc-best-practice/network/members)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
+
 > 先想清楚，再动手
 
 ## 目录
