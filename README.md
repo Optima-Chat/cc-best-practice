@@ -60,7 +60,23 @@
 
 ## 开发流程
 
-使用标准 GitHub Pull Request 流程。Claude Code 可以协助完成每个步骤：
+使用标准 GitHub 工作流。Claude Code 可以通过 `gh` 命令协助完成每个步骤。
+
+### 需求和问题管理
+
+使用 GitHub Issues 管理需求和 Bug：
+
+```
+"查看所有未解决的 issues"
+"创建一个 issue：用户登录功能需要支持 OAuth"
+"读取 issue #123 的详细内容"
+"在 issue #123 添加评论说明进展"
+"关闭 issue #123"
+```
+
+Claude Code 通过 `gh` 命令直接操作 issues，可以读取需求细节、更新进度、关联 PR。
+
+### PR 工作流
 
 1. **创建功能分支**
    ```
