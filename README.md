@@ -119,33 +119,52 @@ Claude Code 通过 `gh` 命令直接操作 issues，可以读取需求细节、�
 "画一个用户登录的时序图，展示前端、后端、数据库的交互流程"
 ```
 
-架构图示例（Claude Code 完整开发流程）：
+架构图示例（为 Claude Code 添加 /magic 命令）：
 ```mermaid
 graph TB
-    Start([开始开发])
-    Issue[GitHub Issue]
-    Branch[功能分支]
-    Discuss[讨论技术方案]
-    Docs[保存到 docs/]
-    Code[实现代码]
-    Test[运行测试]
-    PR[创建 Pull Request]
-    Review[Code Review]
-    Merge[合并到主分支]
-    End([完成])
+    subgraph "用户层"
+        User[用户输入: /magic]
+    end
 
-    Start -->|"创建 issue 描述需求"| Issue
-    Issue -->|"创建分支 feature/xxx"| Branch
-    Branch -->|"讨论方案，不写代码"| Discuss
-    Discuss -->|"整理文档到 @docs"| Docs
-    Docs -->|"读取方案，开始实现"| Code
-    Code -->|"运行测试，修复失败"| Test
-    Test -->|"创建 PR，自动生成描述"| PR
-    PR -->|"团队审查"| Review
-    Review -->|"通过"| Merge
-    Merge --> End
-    Review -.->|"需要修改"| Code
-    Docs -.->|"跨 session 上下文"| Code
+    subgraph "CLI 层"
+        CLI[CLI Parser]
+        Router[Command Router]
+    end
+
+    subgraph "命令处理层"
+        Magic[MagicCommand Handler]
+        Config[Config Loader]
+        Validator[Input Validator]
+    end
+
+    subgraph "核心逻辑层"
+        LLM[LLM Service]
+        Context[Context Manager]
+        FileOps[File Operations]
+    end
+
+    subgraph "存储层"
+        Cache[.cache/]
+        Docs[docs/]
+        UserConfig[.claude/config]
+    end
+
+    User --> CLI
+    CLI --> Router
+    Router --> Magic
+    Magic --> Config
+    Magic --> Validator
+    Validator --> LLM
+    LLM --> Context
+    Context --> FileOps
+    Config --> UserConfig
+    Context --> Cache
+    Context --> Docs
+    FileOps --> Code[项目代码]
+    LLM --> Output[输出结果]
+
+    style Magic fill:#f9f,stroke:#333,stroke-width:2px
+    style LLM fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 时序图示例（完整功能开发流程）：
