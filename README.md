@@ -97,47 +97,19 @@ Claude Code 训练数据包含大量开源项目和技术文档，能提供有�
 
 架构图示例（为 Claude Code 添加 /magic 命令）：
 ```mermaid
-graph TB
-    subgraph "用户层"
-        User[用户输入: /magic]
-    end
-
-    subgraph "CLI 层"
-        CLI[CLI Parser]
-        Router[Command Router]
-    end
-
-    subgraph "命令处理层"
-        Magic[MagicCommand Handler]
-        Config[Config Loader]
-        Validator[Input Validator]
-    end
-
-    subgraph "核心逻辑层"
-        LLM[LLM Service]
-        Context[Context Manager]
-        FileOps[File Operations]
-    end
-
-    subgraph "存储层"
-        Cache[.cache/]
-        Docs[docs/]
-        UserConfig[.claude/config]
-    end
-
-    User --> CLI
-    CLI --> Router
-    Router --> Magic
-    Magic --> Config
-    Magic --> Validator
-    Validator --> LLM
-    LLM --> Context
-    Context --> FileOps
-    Config --> UserConfig
-    Context --> Cache
-    Context --> Docs
-    FileOps --> Code[项目代码]
-    LLM --> Output[输出结果]
+graph LR
+    User[用户输入] --> CLI[CLI Parser] --> Router[Router]
+    Router --> Magic[Magic Handler]
+    Magic --> Validator[Validator]
+    Magic --> Config[Config]
+    Validator --> LLM[LLM Service]
+    LLM --> Context[Context Mgr]
+    Context --> FileOps[File Ops]
+    Config -.-> UserCfg[.claude/config]
+    Context -.-> Cache[.cache/]
+    Context -.-> Docs[docs/]
+    FileOps --> Code[代码库]
+    LLM --> Output[输出]
 
     style Magic fill:#f9f,stroke:#333,stroke-width:2px
     style LLM fill:#bbf,stroke:#333,stroke-width:2px
