@@ -102,55 +102,7 @@ Claude Code 训练数据包含大量开源项目和技术文档，能提供有�
 
 **核心：小步快跑，持续集成**。
 
-## 可视化
-
-**画图：** 要求 Claude Code 用 Mermaid 画架构图、数据流图、时序图、ER 图。Mermaid 语法简单，渲染效果清晰美观，易于理解和维护。GitHub 和大多数 Markdown 编辑器原生支持。把图保存到 docs 目录作为技术文档。
-
-示例请求：
-```
-"用 Mermaid 画出系统架构图，展示各模块间的调用关系"
-"画一个用户登录的时序图，展示前端、后端、数据库的交互流程"
-```
-
-架构图示例（为 Claude Code 添加 /magic 命令）：
-```mermaid
-graph TB
-    subgraph CLI["CLI 层"]
-        Parser[命令解析器]
-        Router[命令路由]
-    end
-
-    subgraph Commands["命令层"]
-        Magic[MagicCommand]
-        Other[其他命令...]
-    end
-
-    subgraph Core["核心服务层"]
-        LLM[LLM 服务]
-        Context[上下文管理]
-        FileOps[文件操作]
-    end
-
-    subgraph Storage["存储层"]
-        Config[配置文件]
-        Cache[缓存]
-        Docs[文档]
-    end
-
-    Router -.依赖.-> Magic
-    Router -.依赖.-> Other
-    Magic -.依赖.-> LLM
-    Magic -.依赖.-> Context
-    Context -.依赖.-> FileOps
-    Context -.依赖.-> Cache
-    Context -.依赖.-> Docs
-    Magic -.依赖.-> Config
-
-    style Magic fill:#f9f,stroke:#333,stroke-width:2px
-    style LLM fill:#bbf,stroke:#333,stroke-width:2px
-```
-
-时序图示例（完整功能开发流程）：
+**时序图示例（完整功能开发流程）：**
 ```mermaid
 sequenceDiagram
     participant Dev as 开发者
@@ -198,6 +150,54 @@ sequenceDiagram
     GH->>Code: 合并到 main 分支
     GH->>GH: 自动关闭 issue #123
     GH-->>CC: PR 已合并，issue 已关闭
+```
+
+## 可视化
+
+**画图：** 要求 Claude Code 用 Mermaid 画架构图、数据流图、时序图、ER 图。Mermaid 语法简单，渲染效果清晰美观，易于理解和维护。GitHub 和大多数 Markdown 编辑器原生支持。把图保存到 docs 目录作为技术文档。
+
+示例请求：
+```
+"用 Mermaid 画出系统架构图，展示各模块间的调用关系"
+"画一个用户登录的时序图，展示前端、后端、数据库的交互流程"
+```
+
+架构图示例（为 Claude Code 添加 /magic 命令）：
+```mermaid
+graph TB
+    subgraph CLI["CLI 层"]
+        Parser[命令解析器]
+        Router[命令路由]
+    end
+
+    subgraph Commands["命令层"]
+        Magic[MagicCommand]
+        Other[其他命令...]
+    end
+
+    subgraph Core["核心服务层"]
+        LLM[LLM 服务]
+        Context[上下文管理]
+        FileOps[文件操作]
+    end
+
+    subgraph Storage["存储层"]
+        Config[配置文件]
+        Cache[缓存]
+        Docs[文档]
+    end
+
+    Router -.依赖.-> Magic
+    Router -.依赖.-> Other
+    Magic -.依赖.-> LLM
+    Magic -.依赖.-> Context
+    Context -.依赖.-> FileOps
+    Context -.依赖.-> Cache
+    Context -.依赖.-> Docs
+    Magic -.依赖.-> Config
+
+    style Magic fill:#f9f,stroke:#333,stroke-width:2px
+    style LLM fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 **核心：一图胜千言**。
