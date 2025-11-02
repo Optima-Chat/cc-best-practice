@@ -119,21 +119,33 @@ Claude Code 通过 `gh` 命令直接操作 issues，可以读取需求细节、�
 "画一个用户登录的时序图，展示前端、后端、数据库的交互流程"
 ```
 
-架构图示例（Claude Code 开发流程）：
+架构图示例（Claude Code 完整开发流程）：
 ```mermaid
 graph TB
-    User[开发者]
-    CC[Claude Code]
-    Docs[docs/ 技术文档]
-    Code[项目代码]
+    Start([开始开发])
+    Issue[GitHub Issue]
+    Branch[功能分支]
+    Discuss[讨论技术方案]
+    Docs[保存到 docs/]
+    Code[实现代码]
+    Test[运行测试]
+    PR[创建 Pull Request]
+    Review[Code Review]
+    Merge[合并到主分支]
+    End([完成])
 
-    User -->|1. 提出需求| CC
-    CC -->|2. 讨论方案| User
-    User -->|3. 确认方案| CC
-    CC -->|4. 整理文档| Docs
-    CC -->|5. 读取方案| Docs
-    CC -->|6. 实现代码| Code
-    Docs -.->|跨 session 上下文| CC
+    Start -->|"创建 issue 描述需求"| Issue
+    Issue -->|"创建分支 feature/xxx"| Branch
+    Branch -->|"讨论方案，不写代码"| Discuss
+    Discuss -->|"整理文档到 @docs"| Docs
+    Docs -->|"读取方案，开始实现"| Code
+    Code -->|"运行测试，修复失败"| Test
+    Test -->|"创建 PR，自动生成描述"| PR
+    PR -->|"团队审查"| Review
+    Review -->|"通过"| Merge
+    Merge --> End
+    Review -.->|"需要修改"| Code
+    Docs -.->|"跨 session 上下文"| Code
 ```
 
 时序图示例（技术方案讨论流程）：
