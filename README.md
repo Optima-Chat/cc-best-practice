@@ -148,27 +148,54 @@ graph TB
     Docs -.->|"跨 session 上下文"| Code
 ```
 
-时序图示例（技术方案讨论流程）：
+时序图示例（完整功能开发流程）：
 ```mermaid
 sequenceDiagram
-    participant User as 开发者
+    participant Dev as 开发者
     participant CC as Claude Code
+    participant GH as GitHub
     participant Docs as docs/
+    participant Code as 代码库
 
-    User->>CC: 我想实现 XX 功能，先讨论技术方案
-    CC->>User: 请提供详细需求
-    User->>CC: 需求：A、B、C
-    CC->>User: 给出技术方案（架构、模块、数据流）
-    User->>CC: 为什么用 Redis？
-    CC->>User: 解释原因和优势
-    User->>CC: 行业最佳实践是什么？
-    CC->>User: 提供业界方案参考
-    User->>CC: 理解了，请整理文档保存到 @docs
-    CC->>Docs: 保存技术方案文档
-    CC->>User: 文档已保存，开始实现？
-    User->>CC: 开始实现
+    Dev->>CC: 创建 issue 描述新功能需求
+    CC->>GH: gh issue create
+    GH-->>CC: issue #123 已创建
+
+    Dev->>CC: 创建分支 feature/new-feature
+    CC->>Code: git checkout -b feature/new-feature
+
+    Dev->>CC: 读取 issue #123，讨论技术方案
+    CC->>GH: gh issue view #123
+    CC->>Dev: 提供技术方案（架构、模块、数据流）
+    Dev->>CC: 为什么这样设计？行业最佳实践？
+    CC->>Dev: 详细解释和业界参考
+
+    Dev->>CC: 方案确认，保存到 @docs
+    CC->>Docs: 保存技术方案文档和架构图
+    Docs-->>CC: 文档已保存
+
+    Dev->>CC: 开始实现
     CC->>Docs: 读取技术方案
-    CC->>User: 代码实现完成
+    CC->>Code: 实现代码
+    Code-->>CC: 代码完成
+
+    Dev->>CC: 运行测试
+    CC->>Code: 执行测试套件
+    Code-->>CC: 测试通过
+
+    Dev->>CC: 创建 PR，关联 issue #123
+    CC->>Code: git push origin feature/new-feature
+    CC->>GH: gh pr create --body "Closes #123"
+    GH-->>CC: PR #124 已创建
+
+    Note over GH: Code Review
+    GH-->>Dev: Review 通过
+
+    Dev->>CC: 合并 PR
+    CC->>GH: gh pr merge #124
+    GH->>Code: 合并到 main 分支
+    GH->>GH: 自动关闭 issue #123
+    GH-->>CC: PR 已合并，issue 已关闭
 ```
 
 **多方案对比：** "给出三种方案：最简单的、性能最优的、最灵活的。分析优缺点。" 权衡利弊后选择，把选型理由记录到 docs。
