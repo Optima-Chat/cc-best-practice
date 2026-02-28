@@ -113,13 +113,27 @@ Claude Code 有很强的使用 GitHub 的能力，开发过程可以走标准的
 
 我们现在团队成员之间交流，就是互相发 Claude Code 写的 issue。特别是需要在多个 repo 之间传递信息时，让 A repo 的 Claude Code 直接给 B repo 写 issue。它写 issue 信息完整详实，比人工描述更准确，方便 B repo 修复问题，并且留下记录。
 
-PR 和 Code Review 也是一样。过去我们经常因为成本过高而不愿意做 code review，有了 Claude Code 这都不是问题。用 PR 还能充分记录信息。
-
-GitHub Issues + PR 既是协作工具，也是知识沉淀。Claude Code 擅长写详细的描述，正好弥补了人类懒得写文档的问题。
+用 PR 能充分记录信息。GitHub Issues + PR 既是协作工具，也是知识沉淀。Claude Code 擅长写详细的描述，正好弥补了人类懒得写文档的问题。
 
 ---
 
-## 12. 充分利用 Claude Code 的文档能力
+## 12. 让 Claude Code 做 Code Review
+
+过去 code review 成本高，大家不愿意做。现在让 Claude Code 先审一遍——测试覆盖、逻辑漏洞、安全问题，它都能发现。工程师再审架构合理性和业务逻辑。
+
+有意思的是，审 AI 写的代码反而比审人写的代码更客观——不是自己写的，没有心理包袱，该改就改。
+
+---
+
+## 13. 新人可以快速上手
+
+有了 CLAUDE.md、Dev Skills、完善的文档和测试，新人加入团队后可以快速上手。Claude Code 能帮新人理解代码库、熟悉开发流程、定位问题。过去需要老人带几周才能独立开发，现在大大缩短。
+
+CLAUDE.md 本身就是最好的项目入门文档——架构设计、开发约定、常见问题全在里面。Dev Skills 让新人不用学习各种内部工具的用法就能操作系统资源。前面所有最佳实践的投入，在新人上手这个环节集中兑现。
+
+---
+
+## 14. 充分利用 Claude Code 的文档能力
 
 Claude Code 写文档详尽、准确、格式规范。不要浪费这个能力。
 
