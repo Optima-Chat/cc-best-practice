@@ -14,7 +14,7 @@
 
 ## 文件结构
 
-- [`ai-native-dev-best-practices.md`](ai-native-dev-best-practices.md) — 分享总纲（10 条最佳实践）
+- [`ai-native-dev-best-practices.md`](ai-native-dev-best-practices.md) — 分享总纲（10 条最佳实践 + 常见问题与局限 + 合作探讨）
 
 ### 话题详细文档
 
