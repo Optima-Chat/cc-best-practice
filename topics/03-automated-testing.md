@@ -1,7 +1,6 @@
 # 让 Claude Code 大量写自动化测试
 
-> 徐昊 | Optima AI 创始人
-> AI Native 开发最佳实践 · 第 3 讲
+> 第 3 点展开 | AI Native 开发最佳实践
 
 ---
 

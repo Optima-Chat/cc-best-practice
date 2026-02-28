@@ -7,6 +7,11 @@
 
 本仓库是分享的提纲和展开材料。
 
+## 使用方式
+
+- **总纲**（`ai-native-dev-best-practices.md`）适合作为演讲幻灯片的骨架，每个要点配一个案例引用
+- **话题文档**（`topics/` 目录）是每个要点的深度展开，包含完整案例、实操建议和管理者视角，适合分享时按需展开或会后分发阅读
+
 ## 文件结构
 
 - [`ai-native-dev-best-practices.md`](ai-native-dev-best-practices.md) — 分享总纲（10 条最佳实践）

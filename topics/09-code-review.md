@@ -1,6 +1,6 @@
 # 让 Claude Code 做 Code Review
 
-> Code Review 是所有团队都知道应该做、但很少有团队真正做好的事情。Claude Code 改变了这件事的经济学。
+> 第 9 点展开 | AI Native 开发最佳实践
 
 ---
 
