@@ -10,7 +10,7 @@
 
 这些选择，单独看每一个都不算错。但组合起来，它们会决定你用 Claude Code 的天花板在哪里。
 
-我们 3 个人、30 个仓库、116 万行代码的效率，不只是因为"会用 Claude Code"，更是因为在工程基础设施上做对了三个选择：**TypeScript、Monorepo、CLAUDE.md**。
+我们 3 个人、30 个仓库、120 万行代码的效率，不只是因为"会用 Claude Code"，更是因为在工程基础设施上做对了三个选择：**TypeScript、Monorepo、CLAUDE.md**。
 
 这三个选择是相互叠加的。TypeScript 给了类型安全，Monorepo 给了上下文共享，CLAUDE.md 给了项目知识。三者一起，Claude Code 的产出质量和开发效率会呈指数级提升。
 
@@ -28,7 +28,7 @@
 
 Python 当然行。但在 AI Native 开发的场景下，TypeScript 有几个关键优势：
 
-**第一，训练数据量最大。** TypeScript 是 GitHub 上代码量最多的语言之一。模型训练集中 TypeScript 代码的占比非常高，这意味着 Claude Code 对 TypeScript 的理解最深、生成的代码质量最高、出错率最低。这不是理论推测，是我们 10 个月实际体验的结论。同样的需求，用 TypeScript 描述给 Claude Code，一次性通过率明显高于其他语言。
+**第一，训练数据量最大。** TypeScript 是 GitHub 上代码量最多的语言之一。模型训练集中 TypeScript 代码的占比非常高，这意味着 Claude Code 对 TypeScript 的理解最深、生成的代码质量最高、出错率最低。这不是理论推测，是我们 6 个月实际体验的结论。同样的需求，用 TypeScript 描述给 Claude Code，一次性通过率明显高于其他语言。
 
 **第二，静态类型检查是刚需。** 这一点怎么强调都不过分。
 
