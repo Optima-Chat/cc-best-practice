@@ -6,11 +6,11 @@
 
 ## 为什么基础设施的选择这么重要
 
-很多团队开始用 AI 写代码，第一反应是"让 Claude Code 帮我写 Python 吧""每个微服务一个 repo 挺好的""CLAUDE.md 是什么？先不管，以后再说"。
+很多团队开始用 AI 写代码，关注点都在"怎么用好 AI 工具"上。但工具之下的工程基础设施选择，往往才是决定效率天花板的关键。
 
-这些选择，单独看每一个都不算错。但组合起来，它们会决定你用 Claude Code 的天花板在哪里。
+我们 3 个人、30 个仓库、120 万行代码的效率，不只是因为"会用 Claude Code"，更是因为在实践中总结出了三个关键的基础设施选择：**TypeScript、Monorepo、CLAUDE.md**。
 
-我们 3 个人、30 个仓库、120 万行代码的效率，不只是因为"会用 Claude Code"，更是因为在工程基础设施上做对了三个选择：**TypeScript、Monorepo、CLAUDE.md**。
+这不是我们一开始就想清楚的。比如我们的电商后台 [commerce-backend](https://github.com/Optima-Chat/commerce-backend) 最早就是用 Python 写的，结果每次功能修改都要花大量时间在 lint 检查和类型相关的修修补补上，非常浪费时间。踩过这些坑之后，我们才逐渐收敛到现在的选择。
 
 这三个选择是相互叠加的。TypeScript 给了类型安全，Monorepo 给了上下文共享，CLAUDE.md 给了项目知识。三者一起，Claude Code 的产出质量和开发效率会呈指数级提升。
 
