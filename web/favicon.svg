@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="20" fill="#0a0a0a"/>
+  <rect x="4" y="4" width="120" height="120" rx="16" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.4"/>
+  <!-- Terminal prompt > -->
+  <text x="20" y="58" font-family="monospace" font-size="48" font-weight="bold" fill="#00ff88">$_</text>
+  <!-- AI sparkle dots -->
+  <circle cx="95" cy="35" r="4" fill="#00aaff" opacity="0.9"/>
+  <circle cx="105" cy="50" r="3" fill="#00aaff" opacity="0.6"/>
+  <circle cx="88" cy="48" r="2.5" fill="#00aaff" opacity="0.4"/>
+  <!-- Underline bar -->
+  <rect x="20" y="72" width="88" height="3" rx="1.5" fill="#00ff88" opacity="0.3"/>
+  <!-- Bottom text: AI -->
+  <text x="64" y="105" font-family="monospace" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle" opacity="0.85">AI</text>
+</svg>
