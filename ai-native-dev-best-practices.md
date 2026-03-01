@@ -57,7 +57,7 @@ Optima AI 做跨境电商 AI 平台，核心团队 3 个人，6 个月写了 120
 
 Claude Code 写的代码你不确定对不对，但测试是验证正确性最可靠的手段。让它写测试的成本极低——它很擅长——但带来的质量保障价值极高。**测试 + 静态类型检查**，是用 Claude Code 开发时确保代码质量的两道防线。
 
-> **案例：** [commerce-backend](https://github.com/Optima-Chat/commerce-backend) 有 443 个测试用例，100% 通过率，覆盖单元测试、API 集成测试、端到端测试。让 Claude Code 写测试几乎没有额外成本，但每次改代码都能立刻知道有没有改坏。
+> **案例：** [commerce-backend](https://github.com/Optima-Chat/commerce-backend) 有 1555 个测试用例，100% 通过率，覆盖单元测试、API 集成测试、端到端测试。让 Claude Code 写测试几乎没有额外成本，但每次改代码都能立刻知道有没有改坏。
 
 ---
 
