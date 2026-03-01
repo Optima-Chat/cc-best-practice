@@ -105,13 +105,13 @@ Claude Code 写的这份 RFC 包含了：
 
 ### 4. API 文档和新人引导
 
-我们的 optima-docs 项目里有一份"从零到卖货的完整指南"——Getting Started Guide。它带一个新用户从注册账号开始，一步一步到创建商品、设置运费、接受订单、处理发货。
+我们的 [optima-docs](https://github.com/Optima-Chat/optima-docs) 项目里有一份"从零到卖货的完整指南"——Getting Started Guide。它带一个新用户从注册账号开始，一步一步到创建商品、设置运费、接受订单、处理发货。
 
 这种文档的写作对 Claude Code 来说特别自然。它知道系统的所有 API，知道每个接口的参数和返回值，知道正确的调用顺序。人写这种文档总是会漏步骤——"这一步我太熟了，忘了写了"。Claude Code 不会忘，因为它是从代码推导的，不是从记忆里写的。
 
 ### 5. 学习文档
 
-前面第一条实践里提到了学 AWS 的案例。那个过程产出了 41 篇文档，覆盖 35 个 AWS 核心知识点。这些文档都放在 learn-aws 仓库里。
+前面第一条实践里提到了学 AWS 的案例。那个过程产出了 41 篇文档，覆盖 35 个 AWS 核心知识点。这些文档都放在 [learn-aws](https://github.com/Optima-Chat/learn-aws) 仓库里。
 
 这就是一个"学习过程自动产出文档"的典型例子。你跟 Claude Code 讨论 VPC 的设计原则，讨论完了让它整理成一篇文档。下次团队里有人要学 VPC，直接看这篇文档就行了。
 
