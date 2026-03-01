@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Native 开发最佳实践 | 徐昊 · Optima AI</title>
+<meta name="description" content="3 人团队，6 个月，30 个仓库，120 万行代码。基于 Claude Code 的 AI Native 开发实战经验。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0a0a0a;
+  --bg-card:     #111111;
+  --bg-nav:      #0d0d0d;
+  --border:      #1a1a1a;
+  --text:        #e0e0e0;
+  --text-dim:    #888888;
+  --text-muted:  #555555;
+  --green:       #00ff88;
+  --green-dim:   #00cc6a;
+  --blue:        #00aaff;
+  --blue-dim:    #0088cc;
+  --amber:       #ffaa00;
+  --red:         #ff4444;
+  --purple:      #aa66ff;
+  --font-mono:   'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --nav-width:   280px;
+  --glow-green:  0 0 10px rgba(0, 255, 136, 0.3);
+  --glow-blue:   0 0 10px rgba(0, 170, 255, 0.3);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #333 #0a0a0a;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.8;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+::selection { background: rgba(0, 255, 136, 0.2); color: #fff; }
+
+/* ============================================
+   NAVIGATION (left sidebar)
+   ============================================ */
+nav {
+  position: fixed;
+  left: 0; top: 0;
+  width: var(--nav-width);
+  height: 100vh;
+  background: var(--bg-nav);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  padding: 24px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+}
+
+nav .nav-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+nav .nav-header h2 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--green);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+nav .nav-header .subtitle {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+nav .nav-section {
+  padding: 8px 16px 4px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+nav a {
+  display: block;
+  padding: 6px 20px 6px 28px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+
+nav a::before {
+  content: '>';
+  position: absolute;
+  left: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: transparent;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+}
+
+nav a:hover::before { color: var(--text-muted); }
+
+nav a.active {
+  color: var(--green);
+  border-left-color: var(--green);
+  background: rgba(0, 255, 136, 0.05);
+}
+
+nav a.active::before { color: var(--green); }
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--green);
+  width: 40px; height: 40px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+main {
+  margin-left: var(--nav-width);
+  max-width: 900px;
+  padding: 0 48px 120px;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  margin: 0 -48px 60px;
+  padding: 80px 48px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #0d1117 50%, #0a0a0a 100%);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('images/hero.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,10,0.3) 0%,
+    rgba(10,10,10,0.6) 60%,
+    rgba(10,10,10,0.95) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.hero h1 .cursor {
+  display: inline-block;
+  width: 3px;
+  height: 42px;
+  background: var(--green);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.hero .tagline {
+  font-size: 20px;
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.hero .stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.hero .stat {
+  text-align: left;
+}
+
+.hero .stat-number {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.hero .stat-label {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   SECTIONS & CHAPTERS
+   ============================================ */
+.part-divider {
+  padding: 40px 0 24px;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+
+.part-divider h2 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--green);
+}
+
+section {
+  margin-bottom: 64px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section h2 {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  padding-top: 80px;
+  margin-top: -80px;
+}
+
+section h2 .chapter-num {
+  color: var(--green);
+  margin-right: 8px;
+}
+
+section h3 {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 40px 0 16px;
+  padding-left: 16px;
+  border-left: 3px solid var(--green);
+}
+
+section h4 {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--green-dim);
+  margin: 28px 0 12px;
+}
+
+section p {
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+section strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+section em {
+  color: var(--amber);
+  font-style: normal;
+}
+
+section a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+  transition: all 0.2s;
+}
+
+section a:hover {
+  color: #fff;
+  border-bottom-color: var(--blue);
+  text-shadow: var(--glow-blue);
+}
+
+/* ============================================
+   BLOCKQUOTES (green bar cards)
+   ============================================ */
+blockquote {
+  background: var(--bg-card);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+  color: var(--text);
+  font-size: 15px;
+}
+
+blockquote p { margin-bottom: 0; }
+
+blockquote strong { color: var(--green); }
+
+/* ============================================
+   HIGHLIGHT BOX (key insights)
+   ============================================ */
+.highlight-box {
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+
+.highlight-box p {
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+section ul, section ol {
+  margin: 12px 0 20px 24px;
+}
+
+section li {
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+section li::marker {
+  color: var(--green);
+}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: rgba(255,255,255,0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--green);
+}
+
+pre {
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: var(--text);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+th {
+  text-align: left;
+  padding: 10px 14px;
+  background: rgba(0, 255, 136, 0.08);
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+}
+
+tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ============================================
+   SCREENSHOTS (placeholder + real)
+   ============================================ */
+.screenshot-container {
+  margin: 28px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.05);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.screenshot-container:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.12);
+  transform: scale(1.01);
+}
+
+.screenshot-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.screenshot-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: linear-gradient(135deg, #0d0d0d 0%, #111 100%);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  gap: 8px;
+}
+
+.screenshot-placeholder::before {
+  content: '[ ]';
+  color: var(--green-dim);
+  font-size: 16px;
+}
+
+/* Hide placeholder when image loads */
+.screenshot-container.has-image .screenshot-placeholder {
+  display: none;
+}
+
+/* ============================================
+   FLOW DIAGRAM (CSS)
+   ============================================ */
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.flow-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #fff;
+}
+
+.flow-arrow {
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 18px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  margin-left: var(--nav-width);
+  padding: 40px 48px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 13px;
+  max-width: 900px;
+}
+
+footer a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  :root { --nav-width: 0px; }
+
+  nav {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 280px;
+  }
+
+  nav.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 0 24px 80px;
+  }
+
+  .hero {
+    margin: 0 -24px 40px;
+    padding: 60px 24px;
+    min-height: 300px;
+  }
+
+  .hero h1 { font-size: 28px; }
+  .hero h1 .cursor { height: 28px; }
+  .hero .tagline { font-size: 16px; }
+  .hero .stat-number { font-size: 24px; }
+
+  section h2 { font-size: 22px; }
+  section h3 { font-size: 17px; }
+
+  footer { margin-left: 0; padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile nav toggle -->
+<button class="nav-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<nav>
+  <div class="nav-header">
+    <h2>AI Native Dev</h2>
+    <div class="subtitle">最佳实践 &middot; Optima AI</div>
+  </div>
+
+  <div class="nav-section">// 个人开发</div>
+  <a href="#ch01">01 先学习、再做方案</a>
+  <a href="#ch02">02 选对工程基础设施</a>
+  <a href="#ch03">03 大量写自动化测试</a>
+  <a href="#ch04">04 多开是效率的来源</a>
+  <a href="#ch05">05 充分理解代码原理</a>
+
+  <div class="nav-section">// 团队协作</div>
+  <a href="#ch06">06 CLI First</a>
+  <a href="#ch07">07 做团队 Dev Skills</a>
+  <a href="#ch08">08 GitHub Issues 和 PR</a>
+  <a href="#ch09">09 Claude Code 做 Review</a>
+  <a href="#ch10">10 文档能力</a>
+  <a href="#ch11">11 BI 分析</a>
+
+  <div class="nav-section">// 附录</div>
+  <a href="#ch12">12 常见问题与局限</a>
+  <a href="#ch13">13 合作探讨</a>
+</nav>
+
+<!-- ============================================
+     MAIN
+     ============================================ -->
+<main>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>AI Native 开发最佳实践<span class="cursor"></span></h1>
+    <div class="tagline">徐昊 &middot; Optima AI 创始人</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-number">3</div><div class="stat-label">人团队</div></div>
+      <div class="stat"><div class="stat-number">6</div><div class="stat-label">个月</div></div>
+      <div class="stat"><div class="stat-number">30</div><div class="stat-label">个仓库</div></div>
+      <div class="stat"><div class="stat-number">120万</div><div class="stat-label">行代码</div></div>
+      <div class="stat"><div class="stat-number">8000+</div><div class="stat-label">次 Commit</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- OPENING -->
+<section id="opening" class="visible">
+  <p>Optima AI 做跨境电商 AI 平台，核心团队 3 个人，6 个月写了 120 万行代码，30 个仓库，8000 多次 commit。全程用 Claude Code 开发。</p>
+  <p>这个代码量和系统复杂度，按传统模式至少需要 20-30 人的团队。我们 3 个人做到了，靠的不是加班，而是从根本上改变了开发方式。</p>
+  <p>今天分享的不是理论，是我们踩了 6 个月坑之后总结出来的实战经验。分两部分：个人怎么用好 Claude Code，以及团队怎么围绕它协作。</p>
+  <div class="highlight-box">
+    <p><strong>AI Native 开发最大的变化，是工程师的角色从"写代码的人"变成了"做决策的人"。</strong> 学习、设计方案、审方案、理解原理、搭建工具链&mdash;&mdash;这些才是人类该做的事。写代码交给 AI。</p>
+  </div>
+</section>
+
+<!-- ============================================
+     PART 1: 个人开发
+     ============================================ -->
+<div class="part-divider" id="part1"><h2>// Part 1 &mdash; 个人开发</h2></div>
+
+<!-- CH01 -->
+<section id="ch01">
+  <h2><span class="chapter-num">01</span>先学习、再做方案、再写代码</h2>
+
+  <div class="screenshot-container" id="ss-01">
+    <div class="screenshot-placeholder">截图: learn-plan-code 工作流</div>
+    <img src="images/screenshots/01-learn.png" alt="Learn Plan Code" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <h3>为什么这是第一条</h3>
+  <p>5000 行代码不过 30 分钟的事情。但写代码快，从来不是我们效率高的原因。真正的原因是：<strong>我们花了大量时间在写代码之前。</strong></p>
+  <p>学习、做技术方案、审方案&mdash;&mdash;这三步占了整个开发周期 70% 以上的时间。写代码反而是最短的环节。</p>
+
+  <div class="flow">
+    <div class="flow-step">学习 1-2h</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">技术方案 2-4h</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">写代码 0.5-2h</div>
+  </div>
+
+  <h3>第一阶段：学习</h3>
+  <p>这是最容易被跳过的一步，也是最不应该跳过的一步。正确的做法是：<strong>先花 1-2 个小时，拿 Claude Code 当老师，上一课。</strong></p>
+  <p>不是泛泛的问题，而是有深度的、追根究底的问题。每一个回答之后还要追问。结束的标志是：<strong>你觉得自己对这个领域的理解，已经足够去评判一份技术方案的好坏了。</strong></p>
+  <blockquote><p>极致案例：花 1 天学 AWS，产出了 <strong>41 篇文档、32,000 多行内容</strong>，覆盖 35 个 AWS 核心知识点。学习过程本身也产出了可复用的知识库。</p></blockquote>
+
+  <h3>第二阶段：做技术方案</h3>
+  <p>Claude Code 缺少"边写边思考"的能力。你给它一个方案，它就照着方案写。方案里没提到的东西，它大概率不会主动考虑。<strong>必须把思考前置到方案阶段。</strong></p>
+  <blockquote><p>commerce-backend 在写任何一行代码之前，先有一份 <strong>1645 行的架构文档</strong>（ARCHITECTURE.md）。optima-business 先写了 <strong>1100 行的 TECH_SPEC.md</strong>。先有方案，再有代码。</p></blockquote>
+
+  <h3>第三阶段：写代码</h3>
+  <p>方案做好了，写代码反而是最快的环节。5000 行代码 30 分钟，配合详尽的技术方案，一次性通过率非常高。</p>
+
+  <h3>学习阶段实操建议</h3>
+  <ol>
+    <li><strong>带着目标学</strong>&mdash;&mdash;列出不确定的问题，一个一个问</li>
+    <li><strong>追问到底</strong>&mdash;&mdash;每一层回答都继续追问细节</li>
+    <li><strong>要求对比</strong>&mdash;&mdash;技术选型让它列对比表</li>
+    <li><strong>问失败案例</strong>&mdash;&mdash;"什么情况下会出问题？"</li>
+    <li><strong>让它出题考你</strong>&mdash;&mdash;答不上来的说明还没学透</li>
+    <li><strong>沉淀成文档</strong>&mdash;&mdash;让 Claude Code 整理讨论成文档</li>
+  </ol>
+
+  <h3>技术方案实操建议</h3>
+  <ol>
+    <li>不要一次让它写完整方案，先写大纲再展开</li>
+    <li>逐模块讨论，一个一个来</li>
+    <li>要求写清楚"为什么"</li>
+    <li>让它画图（Mermaid）</li>
+    <li>关注边界条件</li>
+    <li>给方案写验收标准</li>
+  </ol>
+
+  <div class="highlight-box">
+    <p><strong>AI Native 开发中，写代码是最不重要的环节。学习和方案设计，才是你应该花最多时间的地方。</strong></p>
+  </div>
+</section>
+
+<!-- CH02 -->
+<section id="ch02">
+  <h2><span class="chapter-num">02</span>选对工程基础设施</h2>
+
+  <div class="screenshot-container" id="ss-02">
+    <div class="screenshot-placeholder">截图: 工程基础设施选择</div>
+    <img src="images/screenshots/02-infra.png" alt="Engineering Infrastructure" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p>三个关键选择决定了效率天花板：<strong>TypeScript、Monorepo、CLAUDE.md</strong>。</p>
+
+  <h3>TypeScript：让 AI 写的代码有静态检查</h3>
+  <p>我们 30 个仓库，全部用 TypeScript。前端、后端、CLI、SDK、Lambda、基础设施脚本，无一例外。</p>
+  <ul>
+    <li><strong>训练数据量最大</strong>&mdash;&mdash;Claude Code 对 TypeScript 的理解最深、一次性通过率最高</li>
+    <li><strong>静态类型检查是刚需</strong>&mdash;&mdash;能在编译阶段捕获大量错误，是 AI 代码质量的第一道防线</li>
+    <li><strong>前后端同一种语言</strong>&mdash;&mdash;类型定义共享，接口定义复用，前后端数据结构完全一致</li>
+    <li><strong>生态丰富</strong>&mdash;&mdash;NPM 是世界上最大的包管理器</li>
+  </ul>
+
+  <h3>Monorepo：让 Claude Code 看到完整上下文</h3>
+  <p><strong>Claude Code 只能看到当前仓库里的代码。</strong>Monorepo 让它自然而然就能看到所有相关代码&mdash;&mdash;在写前端组件时直接去看后端的 API handler，确保请求格式完全一致。</p>
+  <blockquote><p>案例：optima-ai-shell 一个仓库包含 5 个 TypeScript 包（ai-cli、session-gateway、web-ui、lambda-handler、agentcore-adapter），密切依赖，Claude Code 可以一次性改完所有相关代码。</p></blockquote>
+
+  <h3>CLAUDE.md：项目的知识库</h3>
+  <p>CLAUDE.md 是你给 Claude Code 的项目说明书，决定了它对项目的理解深度。本质是把<strong>隐性知识显性化</strong>。</p>
+  <p>一份好的 CLAUDE.md 包含：项目概览、架构设计、开发约定、常见陷阱、开发部署流程、重要业务逻辑。</p>
+  <blockquote><p>我们 30 个仓库几乎每个都有 CLAUDE.md。最短 148 行，最长 1062 行。commerce-cli 660 行，commerce-backend 521 行。</p></blockquote>
+
+  <div class="highlight-box">
+    <p>三个选择的效果是叠加的。TypeScript 给了类型安全，Monorepo 给了上下文共享，CLAUDE.md 给了项目知识。<strong>三者一起，质变。</strong></p>
+  </div>
+</section>
+
+<!-- CH03 -->
+<section id="ch03">
+  <h2><span class="chapter-num">03</span>让 Claude Code 大量写自动化测试</h2>
+
+  <div class="screenshot-container" id="ss-03">
+    <div class="screenshot-placeholder">截图: 自动化测试</div>
+    <img src="images/screenshots/03-test.png" alt="Automated Testing" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p><strong>你不知道 AI 写的代码对不对，但测试可以告诉你。</strong>在 AI Native 开发中，测试是"生存必需品"。没有测试的 AI 生成代码，就是一个黑箱。</p>
+
+  <h3>两道防线：静态类型 + 自动化测试</h3>
+  <table>
+    <tr><th>防线</th><th>捕获问题</th><th>阶段</th></tr>
+    <tr><td>静态类型检查</td><td>参数类型不对、返回值不匹配、字段名拼错</td><td>编译时</td></tr>
+    <tr><td>自动化测试</td><td>业务逻辑错误、边界条件、异常处理</td><td>运行时</td></tr>
+  </table>
+
+  <h3>测试代码比例 1:1</h3>
+  <p>功能代码行数和测试代码行数大致 1:1。传统团队做到 30% 覆盖率就不错了，但关键区别是：<strong>传统团队的测试是人写的，成本高；我们的测试是 Claude Code 写的，成本几乎为零。</strong></p>
+
+  <h3>案例：commerce-backend 的 1555 个测试</h3>
+  <p><strong>1555 个测试用例，100% 通过率。</strong>覆盖 47 个数据模型的 CRUD 操作、45 个 Service 的业务逻辑、API 端点验证、权限控制、异常处理。</p>
+  <p>这 1555 个测试，都是 Claude Code 写的。你只需在让它写功能代码时附上一句"顺便把测试也写了"。</p>
+
+  <h3>CI 集成：测试是合并的门禁</h3>
+  <p>每次 PR 提交，CI 自动执行：TypeScript 编译检查 &rarr; ESLint 静态分析 &rarr; 全量测试。三步全过，PR 才允许合并。</p>
+
+  <div class="highlight-box">
+    <p><strong>让 Claude Code 大量写测试，是 AI Native 开发中成本最低、收益最高的实践。不要省这个"免费的保险"。</strong></p>
+  </div>
+</section>
+
+<!-- CH04 -->
+<section id="ch04">
+  <h2><span class="chapter-num">04</span>多开是效率的来源</h2>
+
+  <div class="screenshot-container" id="ss-04">
+    <div class="screenshot-placeholder">截图: 多开并行开发</div>
+    <img src="images/screenshots/04-parallel.png" alt="Parallel Development" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <table>
+    <tr><th>并行度</th><th>日产出</th></tr>
+    <tr><td>1 开</td><td>~5,000 行</td></tr>
+    <tr><td>4 开</td><td>~20,000 行</td></tr>
+    <tr><td>8 开</td><td>~30,000+ 行</td></tr>
+  </table>
+
+  <p>日常 4 开，忙的时候 8 开。一个仓库一个 Claude Code 实例，同时推进多个仓库的任务。</p>
+
+  <h3>多开的三个前提</h3>
+  <ol>
+    <li><strong>技术方案必须足够细</strong>&mdash;&mdash;多开本质上是对前置工作质量的兑现</li>
+    <li><strong>每个仓库都有好的 CLAUDE.md</strong>&mdash;&mdash;相当于给多个"新员工"发同一份入职手册</li>
+    <li><strong>完善的测试</strong>&mdash;&mdash;没有测试的多开，就像蒙着眼睛开多辆车</li>
+  </ol>
+
+  <h3>案例：optima-agent 三天 177 次 commit</h3>
+  <p>2025 年 11 月 28 日到 30 日，三天时间产生了 <strong>177 次 commit，单日最高 70 次</strong>。三天完成一个完整的 AI Agent 框架。</p>
+
+  <h3>多开与技术方案的关系</h3>
+  <blockquote><p>方案做到 60 分，只敢单开。方案做到 80 分，可以 2-3 开。方案做到 95 分，可以 6-8 开。<strong>你在技术方案上花的每一分钟，都在为多开创造空间。</strong></p></blockquote>
+
+  <div class="highlight-box">
+    <p><strong>3 个人写 120 万行代码，不是超人式的努力，是并行化带来的数学必然。</strong></p>
+  </div>
+</section>
+
+<!-- CH05 -->
+<section id="ch05">
+  <h2><span class="chapter-num">05</span>要充分理解代码原理</h2>
+
+  <div class="screenshot-container" id="ss-05">
+    <div class="screenshot-placeholder">截图: 理解代码原理</div>
+    <img src="images/screenshots/05-principles.png" alt="Understand Principles" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p>120 万行代码，我看过的不到 1%。但每个模块做什么、模块之间怎么交互、数据怎么流转、关键设计决策是什么，这些我都很清楚。<strong>这就够了。</strong></p>
+
+  <h3>"理解原理"意味着什么</h3>
+  <ol>
+    <li><strong>知道架构和数据流</strong>&mdash;&mdash;系统有哪些组件，它们之间怎么通信</li>
+    <li><strong>知道设计决策背后的原因</strong>&mdash;&mdash;为什么选 WebSocket 而不是 SSE？</li>
+    <li><strong>知道每个组件的失败模式</strong>&mdash;&mdash;WebSocket 断连、数据库超时、消息队列积压</li>
+    <li><strong>不需要知道每一行代码</strong>&mdash;&mdash;120 万行代码看不完，也不需要看完</li>
+  </ol>
+
+  <h3>核心 Debug 模式</h3>
+  <div class="flow">
+    <div class="flow-step">Claude Code 分析代码</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">提出假设</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--green);color:var(--green)">人类验证方向</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">Claude Code 修复</div>
+  </div>
+
+  <h3>案例：AI Shell 消息推送乱序</h3>
+  <p>Claude Code 诊断为"网络延迟导致乱序"。但我了解架构&mdash;&mdash;WebSocket 单连接、TCP 保序，网络延迟假设说不通。真正原因是<strong>异步数据库写入的顺序问题</strong>。给出正确方向后，十几分钟修复。</p>
+
+  <div class="highlight-box">
+    <p><strong>一个正确的方向性建议，抵得上十次错误的代码修改。</strong>人类的核心价值是方向判断。</p>
+  </div>
+</section>
+
+<!-- ============================================
+     PART 2: 团队协作
+     ============================================ -->
+<div class="part-divider" id="part2"><h2>// Part 2 &mdash; 团队协作</h2></div>
+
+<!-- CH06 -->
+<section id="ch06">
+  <h2><span class="chapter-num">06</span>CLI First：给 AI 和人类设计同一套工具</h2>
+
+  <div class="screenshot-container" id="ss-06">
+    <div class="screenshot-placeholder">截图: CLI First</div>
+    <img src="images/screenshots/06-cli.png" alt="CLI First" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p><strong>如果 AI 不能用，那就不算设计好了。</strong>CLI 是 AI 最自然的操作接口&mdash;&mdash;文本进、文本出，跟 AI 的工作方式天然匹配。</p>
+
+  <h3>commerce-cli：19 个模块，155+ 命令</h3>
+  <p>封装了整个电商系统的所有操作能力。product、order、inventory、shipping、collection、variant、review、homepage、i18n、auth、refund、merchant、transfer、checkout、easyship&hellip;</p>
+
+  <pre><code># 人类在终端里操作
+optima order get ORD-12345 --pretty
+optima product list --status active --pretty
+
+# AI Agent 自动运营
+optima i18n product create --product-id 12345 --locale zh-CN
+optima refund approve REF-67890</code></pre>
+
+  <p>同一套命令，两种用户，零额外开发成本。</p>
+
+  <h3>双输出设计</h3>
+  <p>默认 JSON（AI 用），<code>--pretty</code> 人类可读。一个小改动，<strong>AI 使用同样命令时 token 消耗直接减少 50% 以上</strong>。</p>
+
+  <h3>架构演进：从 MCP 到 Agent + CLI</h3>
+  <p>早期用 MCP 协议，但发现每个能力要实现两次。155+ 个操作维护两套接口不可接受。关键决策：<strong>砍掉 MCP 层，全部走 CLI。</strong></p>
+
+  <div class="highlight-box">
+    <p><strong>每个新系统能力都应该问："AI 能不能直接用？"如果不能，设计就需要重新考虑。</strong></p>
+  </div>
+</section>
+
+<!-- CH07 -->
+<section id="ch07">
+  <h2><span class="chapter-num">07</span>做团队自己的 Dev Skills</h2>
+
+  <div class="screenshot-container" id="ss-07">
+    <div class="screenshot-placeholder">截图: Dev Skills</div>
+    <img src="images/screenshots/07-skills.png" alt="Dev Skills" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p>CLAUDE.md 是随身带的笔记本。Skills 是办公桌抽屉里的操作手册，需要的时候才拿出来翻。<strong>按需加载的知识文件。</strong></p>
+
+  <h3>6 个自定义 Skill</h3>
+  <table>
+    <tr><th>Skill</th><th>行数</th><th>功能</th></tr>
+    <tr><td>logs</td><td>205</td><td>通过 CloudWatch 查看服务日志（CI/Stage/Prod）</td></tr>
+    <tr><td>query-db</td><td>211</td><td>查询数据库，自动管理 SSH 隧道</td></tr>
+    <tr><td>generate-test-token</td><td>331</td><td>自动注册测试账号、走 OAuth 流程、拿 Token</td></tr>
+    <tr><td>show-env</td><td>185</td><td>通过 Infisical 查看环境变量</td></tr>
+    <tr><td>use-commerce-cli</td><td>64</td><td>commerce-cli 使用说明</td></tr>
+    <tr><td>read-code</td><td>207</td><td>跨仓库读取代码（GitHub API）</td></tr>
+  </table>
+
+  <h3>实战案例："Stage 的商品 API 返回 500"</h3>
+  <p>开发者只说了这一句话。Claude Code 自动：查日志 &rarr; 发现 Database connection timeout &rarr; 查配置 &rarr; 发现 max_connections 过小 &rarr; 给出修复方案。<strong>全程全自动。</strong></p>
+
+  <h3>分发机制</h3>
+  <pre><code>npm install -g @optima-chat/dev-skills@latest</code></pre>
+  <p>一行命令搞定。NPM 包的 postinstall hook 自动复制 Skill 文件到 <code>~/.claude/</code>。</p>
+
+  <div class="highlight-box">
+    <p>Dev Skills 的本质：把"怎么操作"从人的记忆搬到 AI 的能力里。<strong>机构知识的编码化。</strong></p>
+  </div>
+</section>
+
+<!-- CH08 -->
+<section id="ch08">
+  <h2><span class="chapter-num">08</span>充分利用 GitHub Issues 和 PR</h2>
+
+  <div class="screenshot-container" id="ss-08">
+    <div class="screenshot-placeholder">截图: GitHub Issues & PR</div>
+    <img src="images/screenshots/08-issues.png" alt="Issues and PR" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p>团队成员之间的技术沟通，很大程度上是通过 Claude Code 写的 GitHub Issues 来完成的。<strong>Claude Code 永远不会偷懒。</strong>每个 issue 都像一份完整的技术报告。</p>
+
+  <h3>跨仓库沟通</h3>
+  <p>A 仓库的 Claude Code 发现了 B 仓库的问题，直接通过 <code>gh</code> 命令在 B 仓库创建 issue，把所有技术细节写进去。B 仓库的 Claude Code 打开 issue，直接开始修复。</p>
+
+  <h3>真实案例</h3>
+  <ul>
+    <li><strong>Issue #33（23 个命令缺失）</strong>&mdash;&mdash;Claude Code 自动对比 MCP 和 CLI 功能，发现 23 个缺失。同一天 PR #34 提交：17 个 commit、45 个文件、+4202 行代码。<strong>一天之内闭环。</strong></li>
+    <li><strong>Issue #9（AI 输出格式优化）</strong>&mdash;&mdash;Claude Code 发现表格格式浪费 50% 以上 token，推动了默认 JSON + --pretty 的设计决策</li>
+    <li><strong>Issue #94（跨仓库 JWT 错误）</strong>&mdash;&mdash;在 hub 仓库发现问题，根因在 backend。Claude Code 自动创建跨仓库 issue 传递完整上下文</li>
+  </ul>
+
+  <div class="highlight-box">
+    <p>Issues + PR 变成了一个<strong>自动维护的知识库</strong>。不需要额外的文档写作工作，知识沉淀是开发流程的副产品。</p>
+  </div>
+</section>
+
+<!-- CH09 -->
+<section id="ch09">
+  <h2><span class="chapter-num">09</span>让 Claude Code 做 Code Review</h2>
+
+  <div class="screenshot-container" id="ss-09">
+    <div class="screenshot-placeholder">截图: AI Code Review</div>
+    <img src="images/screenshots/09-review.png" alt="Code Review" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <h3>两层审查</h3>
+  <table>
+    <tr><th>层级</th><th>审查者</th><th>审什么</th></tr>
+    <tr><td>第一层</td><td>Claude Code</td><td>测试覆盖、安全问题、性能问题、代码风格、错误处理</td></tr>
+    <tr><td>第二层</td><td>人类</td><td>架构决策、业务逻辑、系统设计的长期影响、方案合理性</td></tr>
+  </table>
+
+  <h3>案例：commerce-backend 全面 Code Review</h3>
+  <p>产出了一份 <strong>291 行的评审报告</strong>，从 8 个维度评分：</p>
+  <table>
+    <tr><th>维度</th><th>评分</th></tr>
+    <tr><td>API 设计</td><td>9/10</td></tr>
+    <tr><td>数据库设计</td><td>9/10</td></tr>
+    <tr><td>测试覆盖</td><td>9/10</td></tr>
+    <tr><td>国际化</td><td>8.5/10</td></tr>
+    <tr><td>服务架构</td><td>8/10</td></tr>
+    <tr><td>安全性</td><td>7.5/10</td></tr>
+    <tr><td>错误处理</td><td>7.5/10</td></tr>
+    <tr><td>性能</td><td>6.5/10</td></tr>
+  </table>
+  <p>还给出了三阶段修复计划：立即修复（安全）&rarr; 1-2 周（性能）&rarr; 3-8 周（架构优化）。</p>
+
+  <div class="highlight-box">
+    <p><strong>让贵的人做贵的事，让 AI 做重复的事。</strong> Code Review 不再是做不做的选择题，它应该是每个团队的标配。</p>
+  </div>
+</section>
+
+<!-- CH10 -->
+<section id="ch10">
+  <h2><span class="chapter-num">10</span>充分利用 Claude Code 的文档能力</h2>
+
+  <div class="screenshot-container" id="ss-10">
+    <div class="screenshot-placeholder">截图: 文档能力</div>
+    <img src="images/screenshots/10-docs.png" alt="Documentation" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <p><strong>当一个东西的成本从"一周"降到"几小时"，你对待它的态度就应该变。</strong></p>
+
+  <h3>Claude Code 擅长写的文档</h3>
+  <ul>
+    <li><strong>架构文档</strong>&mdash;&mdash;60KB 覆盖 30 个仓库的完整架构（OPTIMA_COMMERCE_ARCHITECTURE.md），含 Mermaid 图</li>
+    <li><strong>月报</strong>&mdash;&mdash;自动分析 325 次 commit、14 个活跃仓库，产出结构清晰的技术月报</li>
+    <li><strong>技术 RFC</strong>&mdash;&mdash;753 行的并发对话串台问题 RFC，经 5 轮评审通过</li>
+    <li><strong>API 文档和新人引导</strong>&mdash;&mdash;从零到卖货的完整 Getting Started Guide</li>
+    <li><strong>学习文档</strong>&mdash;&mdash;41 篇 AWS 学习文档，学习过程自动产出知识资产</li>
+  </ul>
+
+  <h3>文档和 AI 的正循环</h3>
+  <blockquote><p>好的文档 &rarr; 更好的 AI 理解 &rarr; 更好的代码和文档产出 &rarr; 更好的文档。<strong>你选择进入哪个循环，直接决定了团队使用 AI 的效率上限。</strong></p></blockquote>
+
+  <div class="highlight-box">
+    <p><strong>把文档当作基础设施来投资，而不是当作成本来控制。</strong>在 AI Native 开发的世界里，文档不是负担，是杠杆。</p>
+  </div>
+</section>
+
+<!-- CH11 -->
+<section id="ch11">
+  <h2><span class="chapter-num">11</span>用 Claude Code 做 BI 分析</h2>
+
+  <div class="screenshot-container" id="ss-11">
+    <div class="screenshot-placeholder">截图: BI 分析</div>
+    <img src="images/screenshots/11-bi.png" alt="BI Analysis" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <h3>传统 BI vs Claude Code BI</h3>
+  <table>
+    <tr><th></th><th>传统 BI</th><th>Claude Code BI</th></tr>
+    <tr><td>定量分析</td><td>DAU、转化率、Token 消耗</td><td>同上</td></tr>
+    <tr><td>定性分析</td><td>做不了</td><td>从对话记录提炼系统问题、用户画像</td></tr>
+    <tr><td>回答的问题</td><td>"发生了什么"</td><td>"为什么发生"</td></tr>
+  </table>
+
+  <h3>系统问题分析</h3>
+  <p>分析 9 个对话、10 位用户，发现 7 个系统问题。每个问题都有具体错误信息、涉及用户、根因分析和改进建议。</p>
+
+  <h3>用户画像</h3>
+  <p>Claude Code 读完每个用户几百条对话后理解出用户画像&mdash;&mdash;重度运营用户、单品类深度研究型、新卖家冷启动型。这些不是从数据库字段拼的，是<strong>理解</strong>出来的。</p>
+
+  <div class="highlight-box">
+    <p>传统 BI 告诉你"DAU 下降了 23%"，Claude Code 告诉你<strong>为什么</strong>。<strong>相当于每周做一次全面的用户调研，成本几乎为零。</strong></p>
+  </div>
+</section>
+
+<!-- ============================================
+     PART 3: 附录
+     ============================================ -->
+<div class="part-divider" id="part3"><h2>// 附录</h2></div>
+
+<!-- CH12 -->
+<section id="ch12">
+  <h2><span class="chapter-num">12</span>常见问题与局限</h2>
+
+  <div class="screenshot-container" id="ss-12">
+    <div class="screenshot-placeholder">截图: FAQ</div>
+    <img src="images/screenshots/12-faq.png" alt="FAQ" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  </div>
+
+  <h3>踩过的坑</h3>
+  <ul>
+    <li><strong>不做方案直接让 AI 写</strong>&mdash;&mdash;改了五六轮推倒重来，技术方案做好后 30 分钟一次通过</li>
+    <li><strong>多开合并冲突</strong>&mdash;&mdash;两个实例改了同一个公共模块，花了大半天理清。教训：公共模块只能由一个实例修改</li>
+    <li><strong>"看起来对但逻辑错"</strong>&mdash;&mdash;复杂业务规则（退款涉及库存回滚、运费退还、优惠券恢复），AI 可能漏掉其中一步</li>
+  </ul>
+
+  <h3>关于代码质量</h3>
+  <blockquote><p>AI 生成代码的可维护性，高度依赖于技术方案的质量和测试的覆盖率。方案做得好、测试写得全，代码质量不比人写的差。方案粗糙、没有测试，代码质量会比人写的更差。</p></blockquote>
+
+  <h3>存量系统怎么用</h3>
+  <div class="flow">
+    <div class="flow-step">写 CLAUDE.md</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">补测试</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">改 bug / 加功能</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">逐步重构</div>
+  </div>
+
+  <h3>Claude Code vs Copilot</h3>
+  <table>
+    <tr><th></th><th>Copilot/通义灵码</th><th>Claude Code</th></tr>
+    <tr><td>模式</td><td>自动补全</td><td>Agent</td></tr>
+    <tr><td>角色</td><td>人在写，AI 加速</td><td>AI 写，人审方案和结果</td></tr>
+    <tr><td>提升</td><td>快 30-50%</td><td>从"写代码"中解放出来</td></tr>
+    <tr><td>多开</td><td>不可能</td><td>4-8 个实例并行</td></tr>
+  </table>
+
+  <h3>数据安全</h3>
+  <table>
+    <tr><th>层级</th><th>方案</th><th>适合场景</th></tr>
+    <tr><td>第一层</td><td>AWS Bedrock 云端隔离</td><td>大部分企业项目</td></tr>
+    <tr><td>第二层</td><td>OpenCode + Kimi K2 本地部署</td><td>政府、金融等涉密场景</td></tr>
+    <tr><td>第三层</td><td>混合方案</td><td>按项目敏感度灵活选择</td></tr>
+  </table>
+
+  <h3>知识产权</h3>
+  <p>中国法院认定：AI 生成内容如果体现了使用者的独创性贡献，使用者享有完整著作权。"先学习、做方案、审方案、再让 AI 写代码"的流程，天然就是大量人类智力投入的证据。</p>
+
+  <h3>供应商依赖</h3>
+  <p>11 条实践中大部分不依赖特定工具。核心资产沉淀在 CLAUDE.md、测试、文档、Issues/PR 里&mdash;&mdash;这些都是标准格式的文件，不绑定任何工具。OpenCode 是成熟的开源替代。</p>
+</section>
+
+<!-- CH13 -->
+<section id="ch13">
+  <h2><span class="chapter-num">13</span>合作探讨</h2>
+
+  <h3>不限于电商</h3>
+  <p>11 条实践跟业务领域无关。最直接相关的三个场景：<strong>内部平台和工具开发</strong>、<strong>客户数字化转型项目交付</strong>、<strong>遗留系统的维护和现代化</strong>。</p>
+
+  <h3>Java/Python 团队一样能用</h3>
+  <p>11 条实践中 8 条完全跟编程语言无关，今天就能用。TypeScript 的静态类型检查优势 Java 天然具备，Python 加 Type Hints + mypy 也能获得。</p>
+
+  <h3>成本对比</h3>
+  <table>
+    <tr><th></th><th>AI Native 团队（5 人）</th><th>传统团队（等效产出）</th></tr>
+    <tr><td>人数</td><td>5</td><td>15-20</td></tr>
+    <tr><td>人力成本（月）</td><td>25 万</td><td>75-100 万</td></tr>
+    <tr><td>AI 工具成本（月）</td><td>0.75 万</td><td>0</td></tr>
+    <tr><td><strong>月总成本</strong></td><td><strong>~26 万</strong></td><td><strong>~75-100 万</strong></td></tr>
+  </table>
+  <p>AI 工具成本占人力成本不到 3%。即使生产力只提升 2 倍，ROI 也是显著正的。</p>
+
+  <h3>合作提案</h3>
+  <p><strong>第一步：试点（3 个月）</strong>&mdash;&mdash;选一个 5-6 人团队，一个新项目或独立模块。Optima AI 提供培训（2 天集中 + 每周远程辅导），帮团队建立 CLAUDE.md、Dev Skills、CI 测试流程。</p>
+  <p><strong>第二步：推广</strong>&mdash;&mdash;基于试点数据扩展到 3-5 个团队，形成内部 AI Native 开发规范，探索向客户输出。</p>
+  <blockquote><p><strong>关键是先跑起来，用数据说话。</strong>3 个月试点成本极低，但能验证方向的可行性，为后续更大规模的合作提供决策依据。</p></blockquote>
+</section>
+
+</main>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <p>&copy; 2026 Optima AI &middot; AI Native 开发最佳实践 &middot; <a href="https://github.com/Optima-Chat">GitHub</a></p>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // ---- Scroll-in animation ----
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ---- Active nav highlight ----
+  const navLinks = document.querySelectorAll('nav a');
+  const sectionEls = [];
+  navLinks.forEach(link => {
+    const id = link.getAttribute('href').replace('#', '');
+    const el = document.getElementById(id);
+    if (el) sectionEls.push({ el, link });
+  });
+
+  function updateActiveNav() {
+    let current = null;
+    const scrollY = window.scrollY + 120;
+
+    for (let i = sectionEls.length - 1; i >= 0; i--) {
+      if (sectionEls[i].el.offsetTop <= scrollY) {
+        current = sectionEls[i];
+        break;
+      }
+    }
+
+    navLinks.forEach(l => l.classList.remove('active'));
+    if (current) current.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  // ---- Close mobile nav on link click ----
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('nav').classList.remove('open');
+    });
+  });
+
+  // ---- Close mobile nav on outside click ----
+  document.addEventListener('click', e => {
+    const nav = document.querySelector('nav');
+    const toggle = document.querySelector('.nav-toggle');
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      nav.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>
