@@ -14,7 +14,7 @@
 
 ## 文件结构
 
-- [`ai-native-dev-best-practices.md`](ai-native-dev-best-practices.md) — 分享总纲（10 条最佳实践 + 常见问题与局限 + 合作探讨）
+- [`ai-native-dev-best-practices.md`](ai-native-dev-best-practices.md) — 分享总纲（11 条最佳实践 + 常见问题与局限 + 合作探讨）
 
 ### 话题详细文档
 
@@ -32,3 +32,4 @@
 | 8 | [`topics/08-github-issues-pr.md`](topics/08-github-issues-pr.md) | 充分利用 GitHub Issues 和 PR |
 | 9 | [`topics/09-code-review.md`](topics/09-code-review.md) | 让 Claude Code 做 Code Review |
 | 10 | [`topics/10-documentation.md`](topics/10-documentation.md) | 充分利用 Claude Code 的文档能力 |
+| 11 | [`topics/11-bi-analysis.md`](topics/11-bi-analysis.md) | 用 Claude Code 做 BI 分析 |
