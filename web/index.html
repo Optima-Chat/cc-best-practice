@@ -543,6 +543,176 @@ tr:hover td {
 }
 
 /* ============================================
+   PART 0: METRICS GRID (glowing number cards)
+   ============================================ */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.metric-card:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.08);
+}
+
+.metric-card .metric-number {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--green);
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  line-height: 1.2;
+}
+
+.metric-card:nth-child(even) .metric-number {
+  color: var(--blue);
+  text-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+}
+
+.metric-card .metric-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* ============================================
+   PART 0: PRODUCT GRID (6-card showcase)
+   ============================================ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 20px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.product-card:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.06);
+  transform: translateY(-2px);
+}
+
+.product-card .card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.product-card .card-title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.product-card .card-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.product-card .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.product-card .card-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--green);
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* ============================================
+   PART 0: SPEED LIST (impact data rows)
+   ============================================ */
+.speed-list {
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.speed-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  transition: background 0.2s;
+}
+
+.speed-item:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.speed-item .speed-number {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--green);
+  text-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.speed-item .speed-detail {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.speed-item .speed-detail strong {
+  color: #fff;
+}
+
+.speed-item .speed-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+/* ============================================
+   PART 0: Section title
+   ============================================ */
+.showcase-title {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 footer {
@@ -599,6 +769,14 @@ footer a {
   section h2 { font-size: 22px; }
   section h3 { font-size: 17px; }
 
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .metric-card .metric-number { font-size: 28px; }
+
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .speed-item { flex-direction: column; gap: 6px; }
+  .speed-item .speed-number { font-size: 22px; }
+
   footer { margin-left: 0; padding: 40px 24px; }
 }
 </style>
@@ -616,6 +794,9 @@ footer a {
     <h2>AI Native Dev</h2>
     <div class="subtitle">最佳实践 &middot; Optima AI</div>
   </div>
+
+  <div class="nav-section">// 成果展示</div>
+  <a href="#part0">00 成果展示</a>
 
   <div class="nav-section">// 个人开发</div>
   <a href="#ch01">01 先学习、再做方案</a>
@@ -658,6 +839,130 @@ footer a {
     </div>
   </div>
 </div>
+
+<!-- ============================================
+     PART 0: 成果展示
+     ============================================ -->
+<div class="part-divider" id="part0" style="margin-top:0"><h2>// Part 0 &mdash; 成果展示</h2></div>
+
+<section id="showcase-metrics" class="visible">
+  <h2>数据概览</h2>
+  <p>3 人团队，6 个月，全程 Claude Code 开发。</p>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-number">120万</div>
+      <div class="metric-label">行代码</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">8,105</div>
+      <div class="metric-label">次 Commit</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">30</div>
+      <div class="metric-label">个仓库</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">4,600+</div>
+      <div class="metric-label">个测试用例</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">240+</div>
+      <div class="metric-label">CLI 命令</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">500+</div>
+      <div class="metric-label">API 端点</div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase-products">
+  <h2>我们造了什么</h2>
+  <p>以下产品全部由 3 人团队 + Claude Code 完成。</p>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="card-icon">🛒</div>
+      <div class="card-title">跨境电商平台</div>
+      <div class="card-desc">完整电商后台，支持多渠道、多币种、多语言</div>
+      <div class="card-tags">
+        <span class="card-tag">500+ API</span>
+        <span class="card-tag">4600+ 测试</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">AI Agent 框架</div>
+      <div class="card-desc">自研 Agent 框架，13+ Skills，4 种执行模式</div>
+      <div class="card-tags">
+        <span class="card-tag">3 天完成</span>
+        <span class="card-tag">177 commits</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">AI Shell</div>
+      <div class="card-desc">5 包 Monorepo，WebSocket 实时通信</div>
+      <div class="card-tags">
+        <span class="card-tag">Lambda+EFS</span>
+        <span class="card-tag">实时流式</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-icon">🔗</div>
+      <div class="card-title">多渠道集成</div>
+      <div class="card-desc">Amazon SP-API、TikTok Shop、1688 图搜</div>
+      <div class="card-tags">
+        <span class="card-tag">3 大平台</span>
+        <span class="card-tag">全自动化</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">AI 原生 BI</div>
+      <div class="card-desc">定量 + 定性分析，从对话提炼用户洞察</div>
+      <div class="card-tags">
+        <span class="card-tag">用户画像</span>
+        <span class="card-tag">问题诊断</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-icon">☁️</div>
+      <div class="card-title">云基础设施</div>
+      <div class="card-desc">Terraform IaC，CI/Stage/Prod 三套环境</div>
+      <div class="card-tags">
+        <span class="card-tag">全自动部署</span>
+        <span class="card-tag">监控告警</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase-speed">
+  <h2>极限速度</h2>
+  <div class="speed-list">
+    <div class="speed-item">
+      <div class="speed-number">3 天</div>
+      <div class="speed-detail">
+        完成 AI Agent 框架从零到可用
+        <span class="speed-sub">177 次 commit · 单日峰值 70 次</span>
+      </div>
+    </div>
+    <div class="speed-item">
+      <div class="speed-number">3 天</div>
+      <div class="speed-detail">
+        亚马逊渠道集成开发完成
+        <span class="speed-sub">31 次 commit · +22,656 行代码</span>
+      </div>
+    </div>
+    <div class="speed-item">
+      <div class="speed-number">3 人团队</div>
+      <div class="speed-detail">
+        完成传统 20-30 人团队的产出
+        <span class="speed-sub">120 万行代码 · 30 个仓库 · 6 个月</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- OPENING -->
 <section id="opening" class="visible">
@@ -1136,11 +1441,11 @@ optima refund approve REF-67890</code></pre>
 
   <h3>成本对比</h3>
   <table>
-    <tr><th></th><th>AI Native 团队（5 人）</th><th>传统团队（等效产出）</th></tr>
-    <tr><td>人数</td><td>5</td><td>15-20</td></tr>
-    <tr><td>人力成本（月）</td><td>25 万</td><td>75-100 万</td></tr>
-    <tr><td>AI 工具成本（月）</td><td>0.75 万</td><td>0</td></tr>
-    <tr><td><strong>月总成本</strong></td><td><strong>~26 万</strong></td><td><strong>~75-100 万</strong></td></tr>
+    <tr><th></th><th>AI Native 团队（3 人）</th><th>传统团队（等效产出）</th></tr>
+    <tr><td>人数</td><td>3</td><td>20-30</td></tr>
+    <tr><td>人力成本（月）</td><td>15 万</td><td>100-150 万</td></tr>
+    <tr><td>AI 工具成本（月）</td><td>0.5 万</td><td>0</td></tr>
+    <tr><td><strong>月总成本</strong></td><td><strong>~15.5 万</strong></td><td><strong>~100-150 万</strong></td></tr>
   </table>
   <p>AI 工具成本占人力成本不到 3%。即使生产力只提升 2 倍，ROI 也是显著正的。</p>
 
