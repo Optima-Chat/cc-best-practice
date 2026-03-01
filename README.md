@@ -34,4 +34,4 @@
 | 10 | [`topics/10-documentation.md`](topics/10-documentation.md) | 充分利用 Claude Code 的文档能力 |
 | 11 | [`topics/11-bi-analysis.md`](topics/11-bi-analysis.md) | 用 Claude Code 做 BI 分析 |
 | **常见问题与局限** | | |
-| - | [`topics/12-faq-and-limitations.md`](topics/12-faq-and-limitations.md) | 踩过的坑、代码质量、存量系统、vs Copilot、数据安全、供应商依赖 |
+| - | [`topics/12-faq-and-limitations.md`](topics/12-faq-and-limitations.md) | 踩过的坑、代码质量、存量系统、vs Copilot、数据安全、知识产权、供应商依赖 |
