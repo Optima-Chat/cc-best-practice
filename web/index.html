@@ -714,6 +714,99 @@ tr:hover td {
 }
 
 /* ============================================
+   ARCHITECTURE DIAGRAM
+   ============================================ */
+.arch-diagram {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px;
+  margin: 32px 0;
+  overflow-x: auto;
+}
+
+.arch-layer {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.arch-layer-label {
+  position: absolute;
+  top: -11px;
+  left: 20px;
+  background: var(--bg-card);
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--green);
+}
+
+.arch-layer-content {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.arch-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 13px;
+  min-width: 120px;
+  text-align: center;
+  flex: 1;
+  transition: border-color 0.2s;
+}
+
+.arch-box:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.arch-box strong {
+  color: #fff;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.arch-box span {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.arch-arrow {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 16px;
+  margin: 10px 0;
+  letter-spacing: 4px;
+}
+
+/* Layer accent colors */
+.arch-layer[data-layer="user"] .arch-layer-label { color: var(--blue); }
+.arch-layer[data-layer="user"] { border-color: rgba(0, 170, 255, 0.2); }
+
+.arch-layer[data-layer="ai"] .arch-layer-label { color: var(--purple); }
+.arch-layer[data-layer="ai"] { border-color: rgba(170, 102, 255, 0.2); }
+
+.arch-layer[data-layer="cli"] .arch-layer-label { color: var(--green); }
+.arch-layer[data-layer="cli"] { border-color: rgba(0, 255, 136, 0.2); }
+
+.arch-layer[data-layer="service"] .arch-layer-label { color: var(--amber); }
+.arch-layer[data-layer="service"] { border-color: rgba(255, 170, 0, 0.2); }
+
+.arch-layer[data-layer="infra"] .arch-layer-label { color: var(--red); }
+.arch-layer[data-layer="infra"] { border-color: rgba(255, 68, 68, 0.2); }
+
+/* ============================================
    FOOTER
    ============================================ */
 footer {
@@ -774,6 +867,11 @@ footer a {
   .metric-card .metric-number { font-size: 28px; }
 
   .product-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .arch-diagram { padding: 20px 16px; }
+  .arch-box { min-width: 80px; padding: 10px 12px; }
+  .arch-box strong { font-size: 11px; }
+  .arch-box span { font-size: 10px; }
 
   .speed-item { flex-direction: column; gap: 6px; }
   .speed-item .speed-number { font-size: 22px; }
@@ -962,6 +1060,74 @@ footer a {
         <span class="card-tag">监控告警</span>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="showcase-arch">
+  <h2>系统架构</h2>
+  <p>5 层分层架构，34 个仓库，从用户交互到基础设施全链路覆盖。</p>
+  <div class="arch-diagram">
+
+    <div class="arch-layer" data-layer="user">
+      <span class="arch-layer-label">用户交互层</span>
+      <div class="arch-layer-content">
+        <div class="arch-box"><strong>Agentic Chat</strong><span>AI 对话界面</span></div>
+        <div class="arch-box"><strong>Optima Store</strong><span>买家商城 · Next.js</span></div>
+        <div class="arch-box"><strong>Admin Panel</strong><span>管理后台</span></div>
+      </div>
+    </div>
+
+    <div class="arch-arrow">↓ ↑</div>
+
+    <div class="arch-layer" data-layer="ai">
+      <span class="arch-layer-label">Agentic AI 层</span>
+      <div class="arch-layer-content">
+        <div class="arch-box"><strong>Gateway</strong><span>统一 WebSocket 网关</span></div>
+        <div class="arch-box"><strong>AI Shell</strong><span>容器化执行 · Lambda+EFS</span></div>
+        <div class="arch-box"><strong>Optima Agent</strong><span>13 Skills · Claude SDK</span></div>
+      </div>
+    </div>
+
+    <div class="arch-arrow">↓</div>
+
+    <div class="arch-layer" data-layer="cli">
+      <span class="arch-layer-label">CLI 工具层 · 280+ 命令</span>
+      <div class="arch-layer-content">
+        <div class="arch-box"><strong>Commerce CLI</strong><span>16 模块 · 电商管理</span></div>
+        <div class="arch-box"><strong>Comfy CLI</strong><span>图片视频生成</span></div>
+        <div class="arch-box"><strong>Scout CLI</strong><span>选品调研</span></div>
+        <div class="arch-box"><strong>BI CLI</strong><span>数据分析</span></div>
+        <div class="arch-box"><strong>Ads CLI</strong><span>Google Ads</span></div>
+        <div class="arch-box"><strong>Ops CLI</strong><span>运维监控</span></div>
+      </div>
+    </div>
+
+    <div class="arch-arrow">↓</div>
+
+    <div class="arch-layer" data-layer="service">
+      <span class="arch-layer-label">业务服务层</span>
+      <div class="arch-layer-content">
+        <div class="arch-box"><strong>Commerce Backend</strong><span>500+ API · Python</span></div>
+        <div class="arch-box"><strong>User Auth</strong><span>OAuth 2.0</span></div>
+        <div class="arch-box"><strong>BI Backend</strong><span>ClickHouse · Kafka CDC</span></div>
+        <div class="arch-box"><strong>Scout Backend</strong><span>Amazon 数据</span></div>
+        <div class="arch-box"><strong>Ads Backend</strong><span>Google Ads API</span></div>
+      </div>
+    </div>
+
+    <div class="arch-arrow">↓</div>
+
+    <div class="arch-layer" data-layer="infra">
+      <span class="arch-layer-label">基础设施 · 数据存储</span>
+      <div class="arch-layer-content">
+        <div class="arch-box"><strong>PostgreSQL</strong><span>多库隔离</span></div>
+        <div class="arch-box"><strong>ClickHouse</strong><span>OLAP 分析</span></div>
+        <div class="arch-box"><strong>Redis</strong><span>缓存 · 队列</span></div>
+        <div class="arch-box"><strong>S3 / EFS</strong><span>对象存储 · CDN</span></div>
+        <div class="arch-box"><strong>Terraform</strong><span>IaC · 3 套环境</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
