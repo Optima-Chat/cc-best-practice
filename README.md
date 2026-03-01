@@ -30,3 +30,5 @@
 | 11 | [`11-bi-analysis.md`](topics/11-bi-analysis.md) | 用 Claude Code 做 BI 分析 |
 | **常见问题与局限** | | |
 | - | [`12-faq-and-limitations.md`](topics/12-faq-and-limitations.md) | 踩过的坑、代码质量、存量系统、vs Copilot、数据安全、知识产权、供应商依赖 |
+| **合作探讨** | | |
+| - | [`13-cooperation.md`](topics/13-cooperation.md) | 适用场景、成本对比、合作提案 |
