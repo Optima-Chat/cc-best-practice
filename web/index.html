@@ -491,6 +491,31 @@ tr:hover td {
   display: block;
   width: 100%;
   height: auto;
+  cursor: zoom-in;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  padding: 24px;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.1);
 }
 
 .screenshot-placeholder {
@@ -1694,7 +1719,29 @@ optima refund approve REF-67890</code></pre>
       nav.classList.remove('open');
     }
   });
+
+  // ---- Lightbox for screenshots ----
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  document.querySelectorAll('.screenshot-container img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('open');
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('open');
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') lightbox.classList.remove('open');
+  });
 })();
 </script>
+
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+
 </body>
 </html>
