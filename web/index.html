@@ -1201,7 +1201,7 @@ footer a {
 
   <h3>第二阶段：做技术方案</h3>
   <p>Claude Code 缺少"边写边思考"的能力。你给它一个方案，它就照着方案写。方案里没提到的东西，它大概率不会主动考虑。<strong>必须把思考前置到方案阶段。</strong></p>
-  <blockquote><p>commerce-backend 在写任何一行代码之前，先有一份 <strong>1645 行的架构文档</strong>（ARCHITECTURE.md）。optima-business 先写了 <strong>1100 行的 TECH_SPEC.md</strong>。先有方案，再有代码。</p></blockquote>
+  <blockquote><p>commerce-backend 在写任何一行代码之前，先有一份 <strong>1645 行的架构文档</strong>（<a href="https://github.com/Optima-Chat/commerce-backend/blob/main/docs/ARCHITECTURE.md">ARCHITECTURE.md</a>）。optima-business 先写了 <strong>1100 行的 <a href="https://github.com/Optima-Chat/optima-business/blob/main/TECH_SPEC.md">TECH_SPEC.md</a></strong>。先有方案，再有代码。</p></blockquote>
 
   <h3>第三阶段：写代码</h3>
   <p>方案做好了，写代码反而是最快的环节。5000 行代码 30 分钟，配合详尽的技术方案，一次性通过率非常高。</p>
@@ -1253,7 +1253,7 @@ footer a {
 
   <h3>Monorepo：让 Claude Code 看到完整上下文</h3>
   <p><strong>Claude Code 只能看到当前仓库里的代码。</strong>Monorepo 让它自然而然就能看到所有相关代码&mdash;&mdash;在写前端组件时直接去看后端的 API handler，确保请求格式完全一致。</p>
-  <blockquote><p>案例：optima-ai-shell 一个仓库包含 5 个 TypeScript 包（ai-cli、session-gateway、web-ui、lambda-handler、agentcore-adapter），密切依赖，Claude Code 可以一次性改完所有相关代码。</p></blockquote>
+  <blockquote><p>案例：<a href="https://github.com/Optima-Chat/optima-ai-shell">optima-ai-shell</a> 一个仓库包含 5 个 TypeScript 包（ai-cli、session-gateway、web-ui、lambda-handler、agentcore-adapter），密切依赖，Claude Code 可以一次性改完所有相关代码。</p></blockquote>
 
   <h3>CLAUDE.md：项目的知识库</h3>
   <p>CLAUDE.md 是你给 Claude Code 的项目说明书，决定了它对项目的理解深度。本质是把<strong>隐性知识显性化</strong>。</p>
@@ -1286,7 +1286,7 @@ footer a {
   <h3>测试代码比例 1:1</h3>
   <p>功能代码行数和测试代码行数大致 1:1。传统团队做到 30% 覆盖率就不错了，但关键区别是：<strong>传统团队的测试是人写的，成本高；我们的测试是 Claude Code 写的，成本几乎为零。</strong></p>
 
-  <h3>案例：commerce-backend 的 1555 个测试</h3>
+  <h3>案例：<a href="https://github.com/Optima-Chat/commerce-backend">commerce-backend</a> 的 1555 个测试</h3>
   <p><strong>1555 个测试用例，100% 通过率。</strong>覆盖 47 个数据模型的 CRUD 操作、45 个 Service 的业务逻辑、API 端点验证、权限控制、异常处理。</p>
   <p>这 1555 个测试，都是 Claude Code 写的。你只需在让它写功能代码时附上一句"顺便把测试也写了"。</p>
 
@@ -1323,7 +1323,7 @@ footer a {
     <li><strong>完善的测试</strong>&mdash;&mdash;没有测试的多开，就像蒙着眼睛开多辆车</li>
   </ol>
 
-  <h3>案例：optima-agent 三天 177 次 commit</h3>
+  <h3>案例：<a href="https://github.com/Optima-Chat/optima-agent">optima-agent</a> 三天 177 次 commit</h3>
   <p>2025 年 11 月 28 日到 30 日，三天时间产生了 <strong>177 次 commit，单日最高 70 次</strong>。三天完成一个完整的 AI Agent 框架。</p>
 
   <h3>多开与技术方案的关系</h3>
@@ -1388,7 +1388,7 @@ footer a {
 
   <p><strong>如果 AI 不能用，那就不算设计好了。</strong>CLI 是 AI 最自然的操作接口&mdash;&mdash;文本进、文本出，跟 AI 的工作方式天然匹配。</p>
 
-  <h3>commerce-cli：19 个模块，155+ 命令</h3>
+  <h3><a href="https://github.com/Optima-Chat/commerce-cli">commerce-cli</a>：19 个模块，151 命令</h3>
   <p>封装了整个电商系统的所有操作能力。product、order、inventory、shipping、collection、variant、review、homepage、i18n、auth、refund、merchant、transfer、checkout、easyship&hellip;</p>
 
   <pre><code># 人类在终端里操作
@@ -1488,7 +1488,7 @@ optima refund approve REF-67890</code></pre>
     <tr><td>第二层</td><td>人类</td><td>架构决策、业务逻辑、系统设计的长期影响、方案合理性</td></tr>
   </table>
 
-  <h3>案例：commerce-backend 全面 Code Review</h3>
+  <h3>案例：<a href="https://github.com/Optima-Chat/commerce-backend">commerce-backend</a> 全面 Code Review</h3>
   <p>产出了一份 <strong>291 行的评审报告</strong>，从 8 个维度评分：</p>
   <table>
     <tr><th>维度</th><th>评分</th></tr>
@@ -1521,7 +1521,7 @@ optima refund approve REF-67890</code></pre>
 
   <h3>Claude Code 擅长写的文档</h3>
   <ul>
-    <li><strong>架构文档</strong>&mdash;&mdash;60KB 覆盖 30 个仓库的完整架构（OPTIMA_COMMERCE_ARCHITECTURE.md），含 Mermaid 图</li>
+    <li><strong>架构文档</strong>&mdash;&mdash;60KB 覆盖 30 个仓库的完整架构（<a href="https://github.com/Optima-Chat/optima-hub/blob/main/OPTIMA_COMMERCE_ARCHITECTURE.md">OPTIMA_COMMERCE_ARCHITECTURE.md</a>），含 Mermaid 图</li>
     <li><strong>月报</strong>&mdash;&mdash;自动分析 325 次 commit、14 个活跃仓库，产出结构清晰的技术月报</li>
     <li><strong>技术 RFC</strong>&mdash;&mdash;753 行的并发对话串台问题 RFC，经 5 轮评审通过</li>
     <li><strong>API 文档和新人引导</strong>&mdash;&mdash;从零到卖货的完整 Getting Started Guide</li>
