@@ -1,34 +1,69 @@
 # AI Native 开发最佳实践
 
-> 徐昊 | Optima AI 创始人
-> 2026-03-06 神州数码技术分享
+> 3 人团队 · 6 个月 · 30 个仓库 · 120 万行代码 · 8,105 次 Commit
 
-3 人团队，6 个月，30 个仓库，120 万行代码。全程用 Claude Code 开发。
+基于 Claude Code 的 AI Native 开发实战经验。12 条最佳实践，从个人开发到团队协作的完整方法论。
 
-本仓库是分享的提纲和展开材料。
+**[在线阅读 →](https://cc-best-practice.optima-ai.biz/)**
 
-## 文件结构
+## 这是什么
 
-- [`topics/README.md`](topics/README.md) — 分享提纲（11 条最佳实践 + 常见问题 + 合作探讨）
+一份来自真实生产项目的 AI Native 开发指南。不是理论，不是 demo——是一个 3 人团队用 Claude Code 构建完整商业产品的全部经验。
 
-### 话题详细文档
+内容覆盖：
 
-| # | 文件 | 话题 |
-|---|------|------|
-| **第一部分：个人开发** | | |
-| 1 | [`01-learn-plan-code.md`](topics/01-learn-plan-code.md) | 先学习、再做方案、再写代码 |
-| 2 | [`02-engineering-infrastructure.md`](topics/02-engineering-infrastructure.md) | 选对工程基础设施 |
-| 3 | [`03-automated-testing.md`](topics/03-automated-testing.md) | 让 Claude Code 大量写自动化测试 |
-| 4 | [`04-parallel-development.md`](topics/04-parallel-development.md) | 多开是效率的来源 |
-| 5 | [`05-understand-principles.md`](topics/05-understand-principles.md) | 要充分理解代码原理 |
-| **第二部分：团队协作** | | |
-| 6 | [`06-cli-first.md`](topics/06-cli-first.md) | CLI First：给 AI 和人类设计同一套工具 |
-| 7 | [`07-dev-skills.md`](topics/07-dev-skills.md) | 做团队自己的 Dev Skills |
-| 8 | [`08-github-issues-pr.md`](topics/08-github-issues-pr.md) | 充分利用 GitHub Issues 和 PR |
-| 9 | [`09-code-review.md`](topics/09-code-review.md) | 让 Claude Code 做 Code Review |
-| 10 | [`10-documentation.md`](topics/10-documentation.md) | 充分利用 Claude Code 的文档能力 |
-| 11 | [`11-bi-analysis.md`](topics/11-bi-analysis.md) | 用 Claude Code 做 BI 分析 |
-| **常见问题与局限** | | |
-| - | [`12-faq-and-limitations.md`](topics/12-faq-and-limitations.md) | 踩过的坑、代码质量、存量系统、vs Copilot、数据安全、知识产权、供应商依赖 |
-| **合作探讨** | | |
-| - | [`13-cooperation.md`](topics/13-cooperation.md) | 适用场景、成本对比、合作提案 |
+| 部分 | 内容 |
+|------|------|
+| **个人开发** | 先学习再做方案、选对工程基础设施、大量写自动化测试、多开并行、理解代码原理 |
+| **团队协作** | 给后端写 CLI、做 Dev Skills、用 GitHub Issues/PR 沟通、AI Code Review、文档能力、BI 分析 |
+| **实践建议** | 存量项目怎么切入、新项目 3 人交付 20 人的活、Coding Agent 产品机会 |
+| **常见问题** | 踩过的坑、UI 开发难点、CC vs Codex vs Gemini CLI、数据安全、知识产权 |
+
+## 核心观点
+
+- **代码质量**：Claude Code 写的代码在任何情况下都比人写的好。真正依赖方案质量的是业务逻辑的正确性。
+- **工程基础设施**：TypeScript + Monorepo + CLAUDE.md + 自动化测试 + CI 门禁，缺一不可。
+- **多开是效率关键**：4-8 个 Claude Code 实例并行，一天 50-70 commit 是正常速度。
+- **AI 做重复的事，人做贵的事**：方案设计、架构决策、Code Review 留给人；写代码、写测试、写文档交给 AI。
+
+## 技术栈
+
+这个网站本身就是用 Claude Code 写的——单文件 HTML，暗色终端风格，零依赖。
+
+```
+web/
+├── index.html          # 全部内容，~2500 行
+├── favicon.svg         # 终端风格图标
+└── images/
+    ├── hero.png
+    ├── wechat-qr.png
+    └── screenshots/    # 实际项目截图
+```
+
+## 本地预览
+
+```bash
+cd web && python3 -m http.server 8080
+# 打开 http://localhost:8080
+```
+
+## 部署
+
+托管在 Vercel，push 到 main 自动部署。
+
+```bash
+cd web && vercel --prod
+```
+
+## 关于作者
+
+**徐昊** · Optima AI 创始人
+
+用 Claude Code 从零构建了完整的跨境电商平台（180+ API、1555 测试）、AI Agent 框架、AI Shell 等产品。
+
+- 产品体验：[www.optima.onl](https://www.optima.onl/)
+- 公司主页：[optima-ai.biz](https://optima-ai.biz/)
+
+## License
+
+MIT
