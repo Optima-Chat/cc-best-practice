@@ -145,6 +145,22 @@ nav a.active {
 
 nav a.active::before { color: var(--green); }
 
+nav a.nav-sub {
+  padding-left: 40px;
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+nav a.nav-sub::before {
+  left: 26px;
+  font-size: 10px;
+  content: '-';
+}
+
+nav a.nav-sub:hover { opacity: 1; }
+nav a.nav-sub.active { opacity: 1; }
+
 /* Mobile hamburger */
 .nav-toggle {
   display: none;
@@ -1391,24 +1407,48 @@ footer a {
 
   <div class="nav-section">// 个人开发</div>
   <a href="#ch01">01 先学习、再做方案</a>
+  <a href="#ch01-learn" class="nav-sub">学习</a>
+  <a href="#ch01-plan" class="nav-sub">做技术方案</a>
+  <a href="#ch01-code" class="nav-sub">写代码</a>
   <a href="#ch02">02 选对工程基础设施</a>
+  <a href="#ch02-ts" class="nav-sub">TypeScript</a>
+  <a href="#ch02-monorepo" class="nav-sub">Monorepo</a>
+  <a href="#ch02-claudemd" class="nav-sub">CLAUDE.md</a>
   <a href="#ch03">03 大量写自动化测试</a>
+  <a href="#ch03-ratio" class="nav-sub">测试比例 1:1</a>
+  <a href="#ch03-ci" class="nav-sub">CI 集成</a>
   <a href="#ch04">04 多开是效率的来源</a>
+  <a href="#ch04-prereq" class="nav-sub">三个前提</a>
+  <a href="#ch04-case" class="nav-sub">案例：三天 177 commit</a>
   <a href="#ch05">05 充分理解代码原理</a>
+  <a href="#ch05-debug" class="nav-sub">核心 Debug 模式</a>
 
   <div class="nav-section">// 团队协作</div>
   <a href="#ch06">06 给后端写个 CLI</a>
+  <a href="#ch06-compose" class="nav-sub">随意组合测试</a>
   <a href="#ch07">07 做团队 Dev Skills</a>
+  <a href="#ch07-skills" class="nav-sub">7 个自定义 Skill</a>
   <a href="#ch08">08 GitHub Issues 和 PR</a>
+  <a href="#ch08-cross" class="nav-sub">跨仓库沟通</a>
+  <a href="#ch08-cases" class="nav-sub">真实案例</a>
   <a href="#ch09">09 Claude Code 做 Review</a>
+  <a href="#ch09-layers" class="nav-sub">两层审查</a>
   <a href="#ch10">10 文档能力</a>
+  <a href="#ch10-docs" class="nav-sub">擅长写的文档</a>
+  <a href="#ch10-web" class="nav-sub">这个网页</a>
   <a href="#ch11">11 BI 分析</a>
 
   <div class="nav-section">// 实践建议</div>
   <a href="#ch-practice">如何开始</a>
+  <a href="#practice-existing" class="nav-sub">已有内部项目</a>
+  <a href="#practice-new" class="nav-sub">新内部项目</a>
+  <a href="#practice-agent" class="nav-sub">Coding Agent 产品</a>
 
   <div class="nav-section">// 附录</div>
   <a href="#ch12">12 常见问题与局限</a>
+  <a href="#ch12-pitfalls" class="nav-sub">踩过的坑</a>
+  <a href="#ch12-copilot" class="nav-sub">CC vs Copilot</a>
+  <a href="#ch12-security" class="nav-sub">数据安全</a>
 
 </nav>
 
@@ -1431,6 +1471,7 @@ footer a {
       <div class="stat"><div class="stat-number">126万</div><div class="stat-label">行代码</div></div>
       <div class="stat"><div class="stat-number">8000+</div><div class="stat-label">次 Commit</div></div>
     </div>
+    <a href="https://www.optima.onl/" target="_blank" style="display:inline-block;margin-top:24px;font-family:var(--font-mono);font-size:14px;color:var(--green);border:1px solid rgba(0,255,136,0.3);padding:10px 24px;border-radius:6px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,255,136,0.1)'" onmouseout="this.style.background='transparent'">在线体验 → www.optima.onl</a>
   </div>
 </div>
 
@@ -1472,7 +1513,7 @@ footer a {
 
 <section id="showcase-products">
   <h2>我们造了什么</h2>
-  <p>以下产品全部由 3 人团队 + Claude Code 完成。在线体验：<a href="https://www.optima.onl/" target="_blank">www.optima.onl</a></p>
+  <p>以下产品全部由 3 人团队 + Claude Code 完成。</p>
   <div class="product-grid">
     <div class="product-card">
       <div class="card-icon">🛒</div>
@@ -1721,16 +1762,16 @@ footer a {
     <div class="flow-step">写代码 0.5-2h</div>
   </div>
 
-  <h3>第一阶段：学习</h3>
+  <h3 id="ch01-learn">第一阶段：学习</h3>
   <p>这是最容易被跳过的一步，也是最不应该跳过的一步。正确的做法是：<strong>先花 1-2 个小时，拿 Claude Code 当老师，上一课。</strong></p>
   <p>不是泛泛的问题，而是有深度的、追根究底的问题。每一个回答之后还要追问。结束的标志是：<strong>你觉得自己对这个领域的理解，已经足够去评判一份技术方案的好坏了。</strong></p>
   <blockquote><p>极致案例：花 1 天学 AWS，产出了 <strong>41 篇文档、32,000 多行内容</strong>，覆盖 35 个 AWS 核心知识点。学习过程本身也产出了可复用的<a href="https://github.com/Optima-Chat/learn-aws">知识库</a>。</p></blockquote>
 
-  <h3>第二阶段：做技术方案</h3>
+  <h3 id="ch01-plan">第二阶段：做技术方案</h3>
   <p>Claude Code 缺少"边写边思考"的能力。你给它一个方案，它就照着方案写。方案里没提到的东西，它大概率不会主动考虑。<strong>必须把思考前置到方案阶段。</strong></p>
   <blockquote><p>commerce-backend 在写任何一行代码之前，先有一份 <strong>1645 行的架构文档</strong>（<a href="https://github.com/Optima-Chat/commerce-backend/blob/main/docs/ARCHITECTURE.md">ARCHITECTURE.md</a>）。optima-business 先写了 <strong>1100 行的 <a href="https://github.com/Optima-Chat/optima-business/blob/main/TECH_SPEC.md">TECH_SPEC.md</a></strong>。先有方案，再有代码。</p></blockquote>
 
-  <h3>第三阶段：写代码</h3>
+  <h3 id="ch01-code">第三阶段：写代码</h3>
   <p>方案做好了，写代码反而是最快的环节。5000 行代码 30 分钟，配合详尽的技术方案，一次性通过率非常高。</p>
 
   <h3>学习阶段实操建议</h3>
@@ -1793,7 +1834,7 @@ footer a {
 
   <p>三个关键选择决定了效率天花板：<strong>TypeScript、Monorepo、CLAUDE.md</strong>。</p>
 
-  <h3>TypeScript：让 AI 写的代码有静态检查</h3>
+  <h3 id="ch02-ts">TypeScript：让 AI 写的代码有静态检查</h3>
   <p>我们 30 个仓库，全部用 TypeScript。前端、后端、CLI、SDK、Lambda、基础设施脚本，无一例外。</p>
   <ul>
     <li><strong>训练数据量最大</strong>&mdash;&mdash;Claude Code 对 TypeScript 的理解最深、一次性通过率最高</li>
@@ -1802,11 +1843,11 @@ footer a {
     <li><strong>生态丰富</strong>&mdash;&mdash;NPM 是世界上最大的包管理器</li>
   </ul>
 
-  <h3>Monorepo：让 Claude Code 看到完整上下文</h3>
+  <h3 id="ch02-monorepo">Monorepo：让 Claude Code 看到完整上下文</h3>
   <p><strong>Claude Code 只能看到当前仓库里的代码。</strong>Monorepo 让它自然而然就能看到所有相关代码&mdash;&mdash;在写前端组件时直接去看后端的 API handler，确保请求格式完全一致。</p>
   <blockquote><p>案例：<a href="https://github.com/Optima-Chat/optima-ai-shell">optima-ai-shell</a> 一个仓库包含 5 个 TypeScript 包（ai-cli、session-gateway、web-ui、lambda-handler、agentcore-adapter），密切依赖，Claude Code 可以一次性改完所有相关代码。</p></blockquote>
 
-  <h3>CLAUDE.md：项目的知识库</h3>
+  <h3 id="ch02-claudemd">CLAUDE.md：项目的知识库</h3>
   <p>CLAUDE.md 是你给 Claude Code 的项目说明书，决定了它对项目的理解深度。本质是把<strong>隐性知识显性化</strong>。</p>
   <p>一份好的 CLAUDE.md 包含：项目概览、架构设计、开发约定、常见陷阱、开发部署流程、重要业务逻辑。</p>
   <blockquote><p>我们 30 个仓库几乎每个都有 CLAUDE.md。最短 148 行，最长 1062 行。commerce-cli 660 行，commerce-backend 521 行。</p></blockquote>
@@ -1834,14 +1875,14 @@ footer a {
     <tr><td>自动化测试</td><td>业务逻辑错误、边界条件、异常处理</td><td>运行时</td></tr>
   </table>
 
-  <h3>测试代码比例 1:1</h3>
+  <h3 id="ch03-ratio">测试代码比例 1:1</h3>
   <p>功能代码行数和测试代码行数大致 1:1。传统团队做到 30% 覆盖率就不错了，但关键区别是：<strong>传统团队的测试是人写的，成本高；我们的测试是 Claude Code 写的，成本几乎为零。</strong></p>
 
   <h3>案例：<a href="https://github.com/Optima-Chat/commerce-backend">commerce-backend</a> 的 1555 个测试</h3>
   <p><strong>1555 个测试用例，100% 通过率。</strong>覆盖 47 个数据模型的 CRUD 操作、45 个 Service 的业务逻辑、API 端点验证、权限控制、异常处理。</p>
   <p>这 1555 个测试，都是 Claude Code 写的。你只需在让它写功能代码时附上一句"顺便把测试也写了"。</p>
 
-  <h3>CI 集成：测试是合并的门禁</h3>
+  <h3 id="ch03-ci">CI 集成：测试是合并的门禁</h3>
   <p>每次 PR 提交，CI 自动执行：TypeScript 编译检查 &rarr; ESLint 静态分析 &rarr; 全量测试。三步全过，PR 才允许合并。</p>
 
   <div class="highlight-box">
@@ -1867,14 +1908,14 @@ footer a {
 
   <p>日常 4 开，忙的时候 8 开。一个仓库一个 Claude Code 实例，同时推进多个仓库的任务。</p>
 
-  <h3>多开的三个前提</h3>
+  <h3 id="ch04-prereq">多开的三个前提</h3>
   <ol>
     <li><strong>技术方案必须足够细</strong>&mdash;&mdash;多开本质上是对前置工作质量的兑现</li>
     <li><strong>每个仓库都有好的 CLAUDE.md</strong>&mdash;&mdash;相当于给多个"新员工"发同一份入职手册</li>
     <li><strong>完善的测试</strong>&mdash;&mdash;没有测试的多开，就像蒙着眼睛开多辆车</li>
   </ol>
 
-  <h3>案例：<a href="https://github.com/Optima-Chat/optima-agent">optima-agent</a> 三天 177 次 commit</h3>
+  <h3 id="ch04-case">案例：<a href="https://github.com/Optima-Chat/optima-agent">optima-agent</a> 三天 177 次 commit</h3>
   <p>2025 年 11 月 28 日到 30 日，三天时间产生了 <strong>177 次 commit，单日最高 70 次</strong>。三天完成一个完整的 AI Agent 框架。</p>
 
   <h3>多开与技术方案的关系</h3>
@@ -1929,7 +1970,7 @@ footer a {
     <li><strong>不需要知道每一行代码</strong>&mdash;&mdash;126 万行代码看不完，也不需要看完</li>
   </ol>
 
-  <h3>核心 Debug 模式</h3>
+  <h3 id="ch05-debug">核心 Debug 模式</h3>
   <div class="flow">
     <div class="flow-step">Claude Code 分析代码</div>
     <div class="flow-arrow">&rarr;</div>
@@ -1983,7 +2024,7 @@ footer a {
   <p><strong>让 Claude Code 测一遍 API 端点，远比让它跑一条 CLI 命令慢得多，也更容易出错。</strong></p>
   <p>测 API 要处理什么？认证 token、请求头、请求体格式、URL 拼接、错误码解析&mdash;&mdash;每一步都可能出问题。但 CLI 就是一行命令、一段输出，Claude Code 天然擅长。</p>
 
-  <h3>CLI 让 Claude Code 能随意组合测试</h3>
+  <h3 id="ch06-compose">CLI 让 Claude Code 能随意组合测试</h3>
   <p>有了 CLI，你可以直接在 Claude Code 里按任意需要组合功能来测试。不需要写测试脚本，不需要配 Postman，想测什么直接说。</p>
 
   <pre><code># 创建商品 → 设置库存 → 创建订单 → 全流程验证
@@ -2052,7 +2093,7 @@ optima order list --status pending --pretty</code></pre>
 
   <p>CLAUDE.md 是随身带的笔记本。Skills 是办公桌抽屉里的操作手册，需要的时候才拿出来翻。<strong>按需加载的知识文件。</strong></p>
 
-  <h3>7 个自定义 Skill</h3>
+  <h3 id="ch07-skills">7 个自定义 Skill</h3>
   <table>
     <tr><th>Skill</th><th>行数</th><th>功能</th></tr>
     <tr><td>logs</td><td>205</td><td>通过 CloudWatch 查看服务日志（CI/Stage/Prod）</td></tr>
@@ -2067,7 +2108,7 @@ optima order list --status pending --pretty</code></pre>
   <h3>实战案例："Stage 的商品 API 返回 500"</h3>
   <p>开发者只说了这一句话。Claude Code 自动：查日志 &rarr; 发现 Database connection timeout &rarr; 查配置 &rarr; 发现 max_connections 过小 &rarr; 给出修复方案。<strong>全程全自动。</strong></p>
 
-  <h3>分发机制</h3>
+  <h3 id="ch07-dist">分发机制</h3>
   <pre><code>npm install -g @optima-chat/dev-skills@latest</code></pre>
   <p>一行命令搞定。NPM 包的 postinstall hook 自动复制 Skill 文件到 <code>~/.claude/</code>。</p>
 
@@ -2087,10 +2128,10 @@ optima order list --status pending --pretty</code></pre>
 
   <p>团队成员之间的技术沟通，很大程度上是通过 Claude Code 写的 GitHub Issues 来完成的。<strong>Claude Code 永远不会偷懒。</strong>每个 issue 都像一份完整的技术报告。</p>
 
-  <h3>跨仓库沟通</h3>
+  <h3 id="ch08-cross">跨仓库沟通</h3>
   <p>A 仓库的 Claude Code 发现了 B 仓库的问题，直接通过 <code>gh</code> 命令在 B 仓库创建 issue，把所有技术细节写进去。B 仓库的 Claude Code 打开 issue，直接开始修复。</p>
 
-  <h3>真实案例</h3>
+  <h3 id="ch08-cases">真实案例</h3>
   <ul>
     <li><strong>Issue #33（23 个命令缺失）</strong>&mdash;&mdash;Claude Code 自动对比 MCP 和 CLI 功能，发现 23 个缺失。同一天 PR #34 提交：17 个 commit、45 个文件、+4202 行代码。<strong>一天之内闭环。</strong></li>
     <li><strong>Issue #9（AI 输出格式优化）</strong>&mdash;&mdash;Claude Code 发现表格格式浪费 50% 以上 token，推动了默认 JSON + --pretty 的设计决策</li>
@@ -2111,7 +2152,7 @@ optima order list --status pending --pretty</code></pre>
     <img src="images/screenshots/09-review.png" alt="Code Review" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
   </div>
 
-  <h3>两层审查</h3>
+  <h3 id="ch09-layers">两层审查</h3>
   <table>
     <tr><th>层级</th><th>审查者</th><th>审什么</th></tr>
     <tr><td>第一层</td><td>Claude Code</td><td>测试覆盖、安全问题、性能问题、代码风格、错误处理</td></tr>
@@ -2149,7 +2190,7 @@ optima order list --status pending --pretty</code></pre>
 
   <p><strong>当一个东西的成本从"一周"降到"几小时"，你对待它的态度就应该变。</strong></p>
 
-  <h3>Claude Code 擅长写的文档</h3>
+  <h3 id="ch10-docs">Claude Code 擅长写的文档</h3>
   <ul>
     <li><strong>架构文档</strong>&mdash;&mdash;60KB 覆盖 30 个仓库的完整架构（<a href="https://github.com/Optima-Chat/optima-hub/blob/main/OPTIMA_COMMERCE_ARCHITECTURE.md">OPTIMA_COMMERCE_ARCHITECTURE.md</a>），含 Mermaid 图</li>
     <li><strong>月报</strong>&mdash;&mdash;自动分析 325 次 commit、14 个活跃仓库，产出结构清晰的技术月报</li>
@@ -2158,8 +2199,22 @@ optima order list --status pending --pretty</code></pre>
     <li><strong>学习文档</strong>&mdash;&mdash;41 篇 AWS 学习文档，学习过程自动产出知识资产</li>
   </ul>
 
-  <h3>不止文档：你现在看的这个网页</h3>
-  <p><strong>这个网页本身就是 Claude Code 做的。</strong>从设计、布局、交互到部署，全程 Claude Code 完成。当你需要对外展示成果、做技术分享、写 Proposal 的时候，不用再做 PPT 了&mdash;&mdash;直接让 Claude Code 给你生成一个网页，又快又好，还能随时更新。</p>
+  <h3 id="ch10-web">不止文档：你现在看的这个网页</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;">
+    <a href="https://cc-best-practice.optima-ai.biz/" target="_blank" style="display:block;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(0,255,136,0.3)';this.style.boxShadow='0 0 12px rgba(0,255,136,0.08)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+      <div style="font-family:var(--font-mono);font-size:13px;color:var(--green);margin-bottom:6px;">cc-best-practice</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.5;">本文档 · 技术分享</div>
+    </a>
+    <a href="https://optima-ai.biz/" target="_blank" style="display:block;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(0,255,136,0.3)';this.style.boxShadow='0 0 12px rgba(0,255,136,0.08)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+      <div style="font-family:var(--font-mono);font-size:13px;color:var(--green);margin-bottom:6px;">optima-ai.biz</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.5;">公司官网</div>
+    </a>
+    <a href="https://legal.optima.sh/" target="_blank" style="display:block;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(0,255,136,0.3)';this.style.boxShadow='0 0 12px rgba(0,255,136,0.08)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+      <div style="font-family:var(--font-mono);font-size:13px;color:var(--green);margin-bottom:6px;">legal.optima.sh</div>
+      <div style="font-size:12px;color:var(--text-dim);line-height:1.5;">法律文档站</div>
+    </a>
+  </div>
+  <p><strong>每个都是 Claude Code 从零生成，从需求到上线不超过一天。</strong>不用再做 PPT 了&mdash;&mdash;直接让 Claude Code 生成网页，又快又好，还能随时更新。</p>
   <p>PPT 做完就死了。网页是活的&mdash;&mdash;可以加链接、嵌截图、点击放大、响应式适配手机、一键部署到公网。<strong>信息密度和表现力都远超 PPT。</strong></p>
 
   <h3>文档和 AI 的正循环</h3>
@@ -2179,7 +2234,7 @@ optima order list --status pending --pretty</code></pre>
     <img src="images/screenshots/11-bi.png" alt="BI Analysis" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
   </div>
 
-  <h3>传统 BI vs Claude Code BI</h3>
+  <h3 id="ch11-compare">传统 BI vs Claude Code BI</h3>
   <table>
     <tr><th></th><th>传统 BI</th><th>Claude Code BI</th></tr>
     <tr><td>定量分析</td><td>DAU、转化率、Token 消耗</td><td>同上</td></tr>
@@ -2208,7 +2263,7 @@ optima order list --status pending --pretty</code></pre>
 
   <p>听完方法论，下一步是什么？取决于你的场景。</p>
 
-  <h3>场景一：已有的内部项目</h3>
+  <h3 id="practice-existing">场景一：已有的内部项目</h3>
   <p><strong>直接用 Claude Code，从补测试开始。</strong></p>
   <p>存量项目最大的障碍是"没有测试、不敢动"。让 Claude Code 先给核心模块补上自动化测试，这件事零风险、立刻见效。然后写 CLAUDE.md，让 AI 理解项目。有了测试和 CLAUDE.md，后续改 bug、加功能都可以交给 AI。</p>
   <div class="flow">
@@ -2222,12 +2277,12 @@ optima order list --status pending --pretty</code></pre>
   </div>
   <p>Claude Code 目前的工程能力在所有 Coding Agent 中是断层领先的。建议直接用，不要等。</p>
 
-  <h3>场景二：新的内部项目</h3>
+  <h3 id="practice-new">场景二：新的内部项目</h3>
   <p><strong>从第一天就按 AI Native 方式搭建。</strong></p>
   <p>TypeScript + Monorepo + CLAUDE.md + 自动化测试 + CI 门禁，这套基础设施从第一个 commit 就到位。然后按"先学习、再方案、再写代码"的流程推进。1-2 个开发者配 Claude Code，产出能力相当于传统团队的数倍。</p>
   <p>新项目是最好的试验田&mdash;&mdash;没有历史包袱，可以充分发挥 AI Native 开发的全部优势。用一个项目跑通全流程，再向团队推广。</p>
 
-  <h3>场景三：做 Coding Agent 产品给客户用</h3>
+  <h3 id="practice-agent">场景三：做 Coding Agent 产品给客户用</h3>
   <p><strong>基于 <a href="https://github.com/opencode-ai/opencode">OpenCode</a> 构建，抢占先机。</strong></p>
   <p>AI Coding Agent 是一个正在爆发的巨大服务市场。面向客户的场景&mdash;&mdash;定制化开发工具、行业解决方案、企业级部署&mdash;&mdash;不能绑定单一供应商。OpenCode 是成熟的开源 Coding Agent 框架，支持接入多种模型，适合作为产品基础。</p>
   <p>国内大模型的编码能力正在快速追赶。今天先把 Agent 产品的架构和场景跑通，等模型能力跟上来，就是直接起飞。<strong>先做起来，比等模型成熟更重要。</strong></p>
@@ -2246,7 +2301,7 @@ optima order list --status pending --pretty</code></pre>
 <section id="ch12">
   <h2><span class="chapter-num">12</span>常见问题与局限</h2>
 
-  <h3>踩过的坑</h3>
+  <h3 id="ch12-pitfalls">踩过的坑</h3>
   <ul>
     <li><strong>不做方案直接让 AI 写</strong>&mdash;&mdash;改了五六轮推倒重来，技术方案做好后 30 分钟一次通过</li>
     <li><strong>多开合并冲突</strong>&mdash;&mdash;两个实例改了同一个公共模块，花了大半天理清。教训：公共模块只能由一个实例修改</li>
@@ -2268,7 +2323,7 @@ optima order list --status pending --pretty</code></pre>
     <div class="flow-step">逐步重构</div>
   </div>
 
-  <h3>Claude Code vs Copilot</h3>
+  <h3 id="ch12-copilot">Claude Code vs Copilot</h3>
   <table>
     <tr><th></th><th>Copilot/通义灵码</th><th>Claude Code</th></tr>
     <tr><td>模式</td><td>自动补全</td><td>Agent</td></tr>
@@ -2277,7 +2332,7 @@ optima order list --status pending --pretty</code></pre>
     <tr><td>多开</td><td>不可能</td><td>4-8 个实例并行</td></tr>
   </table>
 
-  <h3>数据安全</h3>
+  <h3 id="ch12-security">数据安全</h3>
   <table>
     <tr><th>层级</th><th>方案</th><th>适合场景</th></tr>
     <tr><td>第一层</td><td>AWS Bedrock 云端隔离</td><td>大部分企业项目</td></tr>
