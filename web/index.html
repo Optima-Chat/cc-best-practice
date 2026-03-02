@@ -1525,7 +1525,7 @@ footer a {
   <a href="#ch12">12 常见问题与局限</a>
   <a href="#ch12-pitfalls" class="nav-sub">踩过的坑</a>
   <a href="#ch12-ui" class="nav-sub">UI 开发难点</a>
-  <a href="#ch12-copilot" class="nav-sub">CC vs Copilot</a>
+  <a href="#ch12-copilot" class="nav-sub">CC vs Codex vs Gemini</a>
   <a href="#ch12-security" class="nav-sub">数据安全</a>
 
 </nav>
@@ -2454,14 +2454,17 @@ optima order list --status pending --pretty</code></pre>
   <h3>关于代码质量</h3>
   <blockquote><p>单论代码质量&mdash;&mdash;命名规范、错误处理、风格一致性&mdash;&mdash;Claude Code 写的代码在任何情况下都比人写的好。真正依赖技术方案质量的，是<strong>业务逻辑的正确性</strong>。方案粗糙，AI 会写出漂亮但逻辑错误的代码；方案清晰，AI 一次通过的概率极高。</p></blockquote>
 
-  <h3 id="ch12-copilot">Claude Code vs Copilot</h3>
+  <h3 id="ch12-copilot">Claude Code vs Codex vs Gemini CLI</h3>
   <table>
-    <tr><th></th><th>Copilot/通义灵码</th><th>Claude Code</th></tr>
-    <tr><td>模式</td><td>自动补全</td><td>Agent</td></tr>
-    <tr><td>角色</td><td>人在写，AI 加速</td><td>AI 写，人审方案和结果</td></tr>
-    <tr><td>提升</td><td>快 30-50%</td><td>从"写代码"中解放出来</td></tr>
-    <tr><td>多开</td><td>不可能</td><td>4-8 个实例并行</td></tr>
+    <tr><th></th><th>Claude Code</th><th>OpenAI Codex</th><th>Gemini CLI</th></tr>
+    <tr><td>模式</td><td>终端 Agent</td><td>云端沙箱</td><td>终端 Agent</td></tr>
+    <tr><td>模型</td><td>Claude Sonnet/Opus</td><td>codex-mini (o4-mini)</td><td>Gemini 2.5 Pro</td></tr>
+    <tr><td>本地文件访问</td><td>直接读写</td><td>需上传到沙箱</td><td>直接读写</td></tr>
+    <tr><td>多开并行</td><td>4-8 个实例</td><td>支持多任务</td><td>支持</td></tr>
+    <tr><td>工具生态</td><td>MCP + Skills + Hooks</td><td>有限</td><td>MCP + Extensions</td></tr>
+    <tr><td>工程能力体感</td><td><strong>断层领先</strong></td><td>轻量任务可用</td><td>快速追赶中</td></tr>
   </table>
+  <p>三者都是 Coding Agent，不是自动补全。核心差距在<strong>模型的工程理解力</strong>&mdash;&mdash;能否在大型项目中正确理解上下文、做出合理的架构决策、一次性写对复杂逻辑。截至目前，Claude 在这方面明显领先。</p>
 
   <h3 id="ch12-security">数据安全</h3>
   <table>
