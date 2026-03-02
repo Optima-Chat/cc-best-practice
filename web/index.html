@@ -674,12 +674,13 @@ tr:hover td {
 }
 
 .infra-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
 .infra-trio .infra-card {
-  flex: 1;
+  min-width: 0;
   padding: 16px;
   background: rgba(255,255,255,0.02);
   border: 1px solid var(--border);
@@ -712,6 +713,8 @@ tr:hover td {
   color: var(--text-dim);
   line-height: 1.6;
   margin-bottom: 12px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .infra-card .infra-stat {
@@ -1067,7 +1070,7 @@ footer a {
   section h2 { font-size: 22px; }
   section h3 { font-size: 17px; }
 
-  .infra-cards { flex-direction: column; }
+  .infra-cards { grid-template-columns: 1fr; }
   .concept-flow { flex-direction: column; }
   .concept-arrow { justify-content: center; transform: rotate(90deg); padding: 4px 0; }
 
@@ -1477,27 +1480,27 @@ footer a {
 
   <div class="infra-trio">
     <div class="infra-cards">
-    <div class="infra-card">
-      <div class="infra-icon">🔷</div>
-      <div class="infra-title">TypeScript</div>
-      <div class="infra-role">类型安全</div>
-      <div class="infra-desc">训练数据最多，AI 一次性通过率最高。静态类型是 AI 代码质量的第一道防线。</div>
-      <div class="infra-stat">30 个仓库全部 TS</div>
-    </div>
-    <div class="infra-card">
-      <div class="infra-icon">📦</div>
-      <div class="infra-title">Monorepo</div>
-      <div class="infra-role">上下文共享</div>
-      <div class="infra-desc">Claude Code 只能看当前仓库。Monorepo 让它自然看到所有相关代码，前后端一次改完。</div>
-      <div class="infra-stat">5 包 Monorepo × 多个仓库</div>
-    </div>
-    <div class="infra-card">
-      <div class="infra-icon">📋</div>
-      <div class="infra-title">CLAUDE.md</div>
-      <div class="infra-role">项目知识</div>
-      <div class="infra-desc">隐性知识显性化。架构、约定、陷阱、流程，一份文件让 AI 理解整个项目。</div>
-      <div class="infra-stat">最长 1,062 行</div>
-    </div>
+      <div class="infra-card">
+        <div class="infra-icon">🔷</div>
+        <div class="infra-title">TypeScript</div>
+        <div class="infra-role">类型安全</div>
+        <div class="infra-desc">训练数据最多，AI 一次性通过率最高。静态类型是 AI 代码质量的第一道防线。</div>
+        <div class="infra-stat">30 个仓库全部 TS</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-icon">📦</div>
+        <div class="infra-title">Monorepo</div>
+        <div class="infra-role">上下文共享</div>
+        <div class="infra-desc">Claude Code 只能看当前仓库。Monorepo 让它自然看到所有相关代码，前后端一次改完。</div>
+        <div class="infra-stat">5 包 Monorepo × 多个仓库</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-icon">📋</div>
+        <div class="infra-title">CLAUDE.md</div>
+        <div class="infra-role">项目知识</div>
+        <div class="infra-desc">隐性知识显性化。架构、约定、陷阱、流程，一份文件让 AI 理解整个项目。</div>
+        <div class="infra-stat">最长 1,062 行</div>
+      </div>
     </div>
     <div class="infra-formula">
       <span>类型安全</span> <span class="infra-plus">+</span> <span>上下文共享</span> <span class="infra-plus">+</span> <span>项目知识</span> <span class="infra-eq">=</span> <span class="infra-result">质变</span>
