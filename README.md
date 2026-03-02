@@ -1,6 +1,12 @@
 # AI Native 开发最佳实践
 
-> 3 人团队 · 6 个月 · 30 个仓库 · 120 万行代码 · 8,105 次 Commit
+[![Website](https://img.shields.io/badge/Website-cc--best--practice.optima--ai.biz-00ff88?style=flat-square)](https://cc-best-practice.optima-ai.biz/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Optima-Chat/cc-best-practice?style=flat-square&color=yellow)](https://github.com/Optima-Chat/cc-best-practice/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/Optima-Chat/cc-best-practice?style=flat-square)](https://github.com/Optima-Chat/cc-best-practice/commits/main)
+[![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-blueviolet?style=flat-square)](https://claude.ai/claude-code)
+
+> 3 人团队 · 6 个月 · 30 个仓库 · 126 万行代码 · 8,105 次 Commit
 
 基于 Claude Code 的 AI Native 开发实战经验。12 条最佳实践，从个人开发到团队协作的完整方法论。
 
