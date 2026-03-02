@@ -839,6 +839,104 @@ tr:hover td {
 .col-good .cli-compare-result { color: var(--green); }
 
 /* ============================================
+   SKILLS PANEL
+   ============================================ */
+.skills-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 28px 0;
+}
+
+.skills-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.skills-panel-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.skills-panel-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--green);
+  background: rgba(0,255,136,0.08);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,255,136,0.15);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.skill-item {
+  padding: 12px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.skill-item .skill-cmd {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+
+.skill-item .skill-what {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.skill-item .skill-envs {
+  margin-top: 6px;
+  display: flex;
+  gap: 4px;
+}
+
+.skill-item .skill-env {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(0,170,255,0.08);
+  color: var(--blue);
+  border: 1px solid rgba(0,170,255,0.15);
+}
+
+.skills-panel-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.skills-panel-footer code {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* ============================================
    DEBUG LOOP (AI ↔ Human collaboration)
    ============================================ */
 .debug-loop {
@@ -1254,6 +1352,7 @@ footer a {
   .debug-loop-steps { grid-template-columns: 1fr; gap: 8px; }
   .debug-arrow { transform: rotate(90deg); }
   .cli-compare { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .concept-arrow { justify-content: center; transform: rotate(90deg); padding: 4px 0; }
 
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1908,14 +2007,49 @@ optima order list --status pending --pretty</code></pre>
 <section id="ch07">
   <h2><span class="chapter-num">07</span>做团队自己的 Dev Skills</h2>
 
-  <div class="screenshot-container" id="ss-07">
-    <div class="screenshot-placeholder">截图: Dev Skills</div>
-    <img src="images/screenshots/07-skills.png" alt="Dev Skills" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  <div class="skills-panel">
+    <div class="skills-panel-header">
+      <div class="skills-panel-title">optima-dev-skills</div>
+      <div class="skills-panel-badge">7 Skills · 按需加载</div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-cmd">/logs</div>
+        <div class="skill-what">查看服务日志（CloudWatch）</div>
+        <div class="skill-envs"><span class="skill-env">CI</span><span class="skill-env">Stage</span><span class="skill-env">Prod</span></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-cmd">/query-db</div>
+        <div class="skill-what">查询数据库，自动 SSH 隧道</div>
+        <div class="skill-envs"><span class="skill-env">CI</span><span class="skill-env">Stage</span><span class="skill-env">Prod</span></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-cmd">/generate-test-token</div>
+        <div class="skill-what">自动注册 + OAuth + 拿 Token</div>
+        <div class="skill-envs"><span class="skill-env">Dev</span></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-cmd">/show-env</div>
+        <div class="skill-what">查看环境变量（Infisical）</div>
+        <div class="skill-envs"><span class="skill-env">Stage</span><span class="skill-env">Prod</span></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-cmd">/restart-ecs</div>
+        <div class="skill-what">重启 ECS 服务</div>
+        <div class="skill-envs"><span class="skill-env">Stage</span><span class="skill-env">Prod</span></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-cmd">/read-code</div>
+        <div class="skill-what">跨仓库读代码（GitHub API）</div>
+        <div class="skill-envs"><span class="skill-env">30 repos</span></div>
+      </div>
+    </div>
+    <div class="skills-panel-footer">安装：<code>npm i -g @optima-chat/dev-skills</code> → 自动注入 ~/.claude/</div>
   </div>
 
   <p>CLAUDE.md 是随身带的笔记本。Skills 是办公桌抽屉里的操作手册，需要的时候才拿出来翻。<strong>按需加载的知识文件。</strong></p>
 
-  <h3>6 个自定义 Skill</h3>
+  <h3>7 个自定义 Skill</h3>
   <table>
     <tr><th>Skill</th><th>行数</th><th>功能</th></tr>
     <tr><td>logs</td><td>205</td><td>通过 CloudWatch 查看服务日志（CI/Stage/Prod）</td></tr>
@@ -1924,6 +2058,7 @@ optima order list --status pending --pretty</code></pre>
     <tr><td>show-env</td><td>185</td><td>通过 Infisical 查看环境变量</td></tr>
     <tr><td>use-commerce-cli</td><td>64</td><td>commerce-cli 使用说明</td></tr>
     <tr><td>read-code</td><td>207</td><td>跨仓库读取代码（GitHub API）</td></tr>
+    <tr><td>restart-ecs</td><td>-</td><td>重启 ECS 服务（Stage/Prod）</td></tr>
   </table>
 
   <h3>实战案例："Stage 的商品 API 返回 500"</h3>
