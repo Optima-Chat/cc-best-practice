@@ -1404,6 +1404,9 @@ footer a {
   <a href="#ch10">10 文档能力</a>
   <a href="#ch11">11 BI 分析</a>
 
+  <div class="nav-section">// 实践建议</div>
+  <a href="#ch-practice">如何开始</a>
+
   <div class="nav-section">// 附录</div>
   <a href="#ch12">12 常见问题与局限</a>
 
@@ -2188,6 +2191,45 @@ optima order list --status pending --pretty</code></pre>
 
   <div class="highlight-box">
     <p>传统 BI 告诉你"DAU 下降了 23%"，Claude Code 告诉你<strong>为什么</strong>。<strong>相当于每周做一次全面的用户调研，成本几乎为零。</strong></p>
+  </div>
+</section>
+
+<!-- ============================================
+     实践建议
+     ============================================ -->
+<div class="part-divider" id="part-practice"><h2>// 如何开始</h2></div>
+
+<section id="ch-practice">
+  <h2>三个场景，三种路径</h2>
+
+  <p>听完方法论，下一步是什么？取决于你的场景。</p>
+
+  <h3>场景一：已有的内部项目</h3>
+  <p><strong>直接用 Claude Code，从补测试开始。</strong></p>
+  <p>存量项目最大的障碍是"没有测试、不敢动"。让 Claude Code 先给核心模块补上自动化测试，这件事零风险、立刻见效。然后写 CLAUDE.md，让 AI 理解项目。有了测试和 CLAUDE.md，后续改 bug、加功能都可以交给 AI。</p>
+  <div class="flow">
+    <div class="flow-step">写 CLAUDE.md</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">补测试</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">改 bug / 加功能</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">逐步扩大范围</div>
+  </div>
+  <p>Claude Code 目前的工程能力在所有 Coding Agent 中是断层领先的。建议直接用，不要等。</p>
+
+  <h3>场景二：新的内部项目</h3>
+  <p><strong>从第一天就按 AI Native 方式搭建。</strong></p>
+  <p>TypeScript + Monorepo + CLAUDE.md + 自动化测试 + CI 门禁，这套基础设施从第一个 commit 就到位。然后按"先学习、再方案、再写代码"的流程推进。1-2 个开发者配 Claude Code，产出能力相当于传统团队的数倍。</p>
+  <p>新项目是最好的试验田&mdash;&mdash;没有历史包袱，可以充分发挥 AI Native 开发的全部优势。用一个项目跑通全流程，再向团队推广。</p>
+
+  <h3>场景三：做 Coding Agent 产品给客户用</h3>
+  <p><strong>基于 <a href="https://github.com/opencode-ai/opencode">OpenCode</a> 构建，抢占先机。</strong></p>
+  <p>AI Coding Agent 是一个正在爆发的巨大服务市场。面向客户的场景&mdash;&mdash;定制化开发工具、行业解决方案、企业级部署&mdash;&mdash;不能绑定单一供应商。OpenCode 是成熟的开源 Coding Agent 框架，支持接入多种模型，适合作为产品基础。</p>
+  <p>国内大模型的编码能力正在快速追赶。今天先把 Agent 产品的架构和场景跑通，等模型能力跟上来，就是直接起飞。<strong>先做起来，比等模型成熟更重要。</strong></p>
+
+  <div class="highlight-box">
+    <p><strong>不管哪个场景，最重要的是现在就开始。AI Native 开发不是未来的事&mdash;&mdash;它已经在发生。先跑起来的团队，积累的经验本身就是壁垒。</strong></p>
   </div>
 </section>
 
