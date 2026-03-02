@@ -1524,6 +1524,7 @@ footer a {
   <div class="nav-section">// 附录</div>
   <a href="#ch12">12 常见问题与局限</a>
   <a href="#ch12-pitfalls" class="nav-sub">踩过的坑</a>
+  <a href="#ch12-ui" class="nav-sub">UI 开发难点</a>
   <a href="#ch12-copilot" class="nav-sub">CC vs Copilot</a>
   <a href="#ch12-security" class="nav-sub">数据安全</a>
 
@@ -2438,8 +2439,18 @@ optima order list --status pending --pretty</code></pre>
     <li><strong>不做方案直接让 AI 写</strong>&mdash;&mdash;改了五六轮推倒重来，技术方案做好后 30 分钟一次通过</li>
     <li><strong>多开合并冲突</strong>&mdash;&mdash;两个实例改了同一个公共模块，花了大半天理清。教训：公共模块只能由一个实例修改</li>
     <li><strong>"看起来对但逻辑错"</strong>&mdash;&mdash;复杂业务规则（退款涉及库存回滚、运费退还、优惠券恢复），AI 可能漏掉其中一步</li>
-    <li><strong>UI 开发：精确复现设计稿仍是难点</strong>&mdash;&mdash;后端逻辑、CLI、测试这些 AI 写得很好，但前端要精确还原设计稿（像素级对齐、交互细节、响应式适配）目前仍有明显差距。这不只是我们的问题&mdash;&mdash;阿里、字节、百度、腾讯都在投入多模态 Coding Agent 研究，港科大 iSING Lab 与阿里合作的<a href="https://github.com/global-optima-research/coding-agent-benchmark/blob/main/analysis/proposal.md">课题</a>显示：文本 Coding Agent 准确率已接近 80%，但引入视觉输入（截图→代码）后降到 36%，差距仍有 43 个百分点。这是当前整个行业的研究热点。</li>
   </ul>
+
+  <h3 id="ch12-ui">UI 开发：精确复现设计稿仍是难点</h3>
+  <p>后端逻辑、CLI、测试这些 AI 写得很好，但前端要精确还原设计稿（像素级对齐、交互细节、响应式适配）目前仍有明显差距。</p>
+  <p>这不只是我们的问题&mdash;&mdash;阿里、字节、百度、腾讯都在投入多模态 Coding Agent 研究。港科大 iSING Lab 与阿里合作的<a href="https://github.com/global-optima-research/coding-agent-benchmark/blob/main/analysis/proposal.md">课题</a>显示：</p>
+  <table>
+    <tr><th>模式</th><th>准确率</th></tr>
+    <tr><td>文本 Coding Agent</td><td><strong>~80%</strong></td></tr>
+    <tr><td>视觉输入（截图→代码）</td><td><strong>~36%</strong></td></tr>
+    <tr><td>差距</td><td>43 个百分点</td></tr>
+  </table>
+  <p>这是当前整个行业的研究热点。建议：<strong>后端全面用 AI，前端用 AI 出初版 + 人工精调。</strong></p>
 
   <h3>关于代码质量</h3>
   <blockquote><p>单论代码质量&mdash;&mdash;命名规范、错误处理、风格一致性&mdash;&mdash;Claude Code 写的代码在任何情况下都比人写的好。真正依赖技术方案质量的，是<strong>业务逻辑的正确性</strong>。方案粗糙，AI 会写出漂亮但逻辑错误的代码；方案清晰，AI 一次通过的概率极高。</p></blockquote>
