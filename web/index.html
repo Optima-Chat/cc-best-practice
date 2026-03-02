@@ -751,6 +751,97 @@ tr:hover td {
 }
 
 /* ============================================
+   DEBUG LOOP (AI ↔ Human collaboration)
+   ============================================ */
+.debug-loop {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 24px;
+  margin: 28px 0;
+}
+
+.debug-loop-title {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.debug-loop-steps {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 0;
+}
+
+.debug-step {
+  padding: 16px 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.debug-step.ai-step {
+  background: rgba(0, 170, 255, 0.06);
+  border: 1px solid rgba(0, 170, 255, 0.2);
+}
+
+.debug-step.human-step {
+  background: rgba(0, 255, 136, 0.06);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+}
+
+.debug-step .step-role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.debug-step.ai-step .step-role { color: var(--blue); }
+.debug-step.human-step .step-role { color: var(--green); }
+
+.debug-step .step-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.debug-step .step-desc {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.debug-arrow {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0 4px;
+}
+
+.debug-loop-insight {
+  margin-top: 20px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.debug-loop-insight strong {
+  color: var(--green);
+}
+
+/* ============================================
    PART 0: METRICS GRID (glowing number cards)
    ============================================ */
 .metrics-grid {
@@ -1072,6 +1163,8 @@ footer a {
 
   .infra-cards { grid-template-columns: 1fr; }
   .concept-flow { flex-direction: column; }
+  .debug-loop-steps { grid-template-columns: 1fr; gap: 8px; }
+  .debug-arrow { transform: rotate(90deg); }
   .concept-arrow { justify-content: center; transform: rotate(90deg); padding: 4px 0; }
 
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1605,9 +1698,34 @@ footer a {
 <section id="ch05">
   <h2><span class="chapter-num">05</span>要充分理解代码原理</h2>
 
-  <div class="screenshot-container" id="ss-05">
-    <div class="screenshot-placeholder">截图: 理解代码原理</div>
-    <img src="images/screenshots/05-principles.png" alt="Understand Principles" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  <div class="debug-loop">
+    <div class="debug-loop-title">Debug 协作模式</div>
+    <div class="debug-loop-steps">
+      <div class="debug-step ai-step">
+        <div class="step-role">AI</div>
+        <div class="step-label">分析代码</div>
+        <div class="step-desc">读源码、追调用链<br>定位可疑区域</div>
+      </div>
+      <div class="debug-arrow">→</div>
+      <div class="debug-step ai-step">
+        <div class="step-role">AI</div>
+        <div class="step-label">提出假设</div>
+        <div class="step-desc">给出可能的<br>原因和修复方案</div>
+      </div>
+      <div class="debug-arrow">→</div>
+      <div class="debug-step human-step">
+        <div class="step-role">Human</div>
+        <div class="step-label">验证方向</div>
+        <div class="step-desc">凭架构理解<br>判断假设是否合理</div>
+      </div>
+      <div class="debug-arrow">→</div>
+      <div class="debug-step ai-step">
+        <div class="step-role">AI</div>
+        <div class="step-label">执行修复</div>
+        <div class="step-desc">按正确方向<br>写代码修复</div>
+      </div>
+    </div>
+    <div class="debug-loop-insight">126 万行代码看过不到 1%，但 <strong>理解架构 = 能给出正确方向</strong></div>
   </div>
 
   <p>126 万行代码，我看过的不到 1%。但每个模块做什么、模块之间怎么交互、数据怎么流转、关键设计决策是什么，这些我都很清楚。<strong>这就够了。</strong></p>
