@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Native 开发最佳实践 | 徐昊 · Optima AI</title>
-<meta name="description" content="3 人团队，6 个月，30 个仓库，126 万行代码。基于 Claude Code 的 AI Native 开发实战经验。">
+<meta name="description" content="3 人团队，6 个月，30 个仓库，120 万行代码。基于 Claude Code 的 AI Native 开发实战经验。">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Native 开发最佳实践 | 徐昊 · Optima AI">
+<meta property="og:description" content="3 人团队，6 个月，30 个仓库，120 万行代码。12 条实战经验，从个人开发到团队协作的完整方法论。">
+<meta property="og:image" content="https://cc-best-practice.optima-ai.biz/images/hero.png">
+<meta property="og:url" content="https://cc-best-practice.optima-ai.biz/">
+<meta property="og:locale" content="zh_CN">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Native 开发最佳实践 | 徐昊 · Optima AI">
+<meta name="twitter:description" content="3 人团队，6 个月，30 个仓库，120 万行代码。基于 Claude Code 的 12 条实战经验。">
+<meta name="twitter:image" content="https://cc-best-practice.optima-ai.biz/images/hero.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -659,6 +671,60 @@ tr:hover td {
     transform: rotate(90deg);
     padding: 4px 0;
   }
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  padding: 60px 20px;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+.cta-section h2 {
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.cta-section .cta-subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 36px;
+}
+.cta-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.cta-link.cta-primary {
+  background: var(--green);
+  color: #000;
+}
+.cta-link.cta-primary:hover {
+  background: #00ffaa;
+  transform: translateY(-2px);
+}
+.cta-link.cta-secondary {
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: var(--bg-card);
+}
+.cta-link.cta-secondary:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateY(-2px);
 }
 
 /* ============================================
@@ -2485,6 +2551,21 @@ optima order list --status pending --pretty</code></pre>
 
 
 </main>
+
+<!-- ============================================
+     CTA
+     ============================================ -->
+<div class="cta-section">
+  <h2>想聊聊 AI Native 开发？</h2>
+  <p class="cta-subtitle">无论是技术细节还是团队落地，欢迎加微信交流。</p>
+  <div style="margin: 28px auto; max-width: 200px; background: #fff; border-radius: 12px; padding: 12px;">
+    <img src="images/wechat-qr.png" alt="微信二维码" style="width: 100%; display: block; border-radius: 8px;">
+  </div>
+  <div class="cta-links">
+    <a href="https://www.optima.onl/" target="_blank" class="cta-link cta-primary">体验 Optima</a>
+    <a href="https://github.com/Optima-Chat" target="_blank" class="cta-link cta-secondary">GitHub</a>
+  </div>
+</div>
 
 <!-- ============================================
      FOOTER
