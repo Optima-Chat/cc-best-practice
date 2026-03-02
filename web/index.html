@@ -2469,12 +2469,12 @@ optima order list --status pending --pretty</code></pre>
   <p style="color: var(--text-muted); font-size: 13px;">以上为个人主观使用体感，未做系统化定量评测。所有工具都在快速演进，仅供参考。</p>
 
   <h3 id="ch12-security">数据安全</h3>
-  <table>
-    <tr><th>层级</th><th>方案</th><th>适合场景</th></tr>
-    <tr><td>第一层</td><td>AWS Bedrock 云端隔离</td><td>大部分企业项目</td></tr>
-    <tr><td>第二层</td><td>OpenCode + Kimi K2 本地部署</td><td>政府、金融等涉密场景</td></tr>
-    <tr><td>第三层</td><td>混合方案</td><td>按项目敏感度灵活选择</td></tr>
-  </table>
+  <p>企业最关心的问题：<strong>代码会不会被模型厂商拿去训练？</strong></p>
+  <ul>
+    <li><strong>Claude Code</strong>&mdash;&mdash;Anthropic 明确承诺：API 调用的数据不用于模型训练。代码在传输和处理过程中加密，不会被存储或学习。对于大部分企业项目，这个保障已经足够。</li>
+    <li><strong>AWS Bedrock</strong>&mdash;&mdash;如果需要更强的隔离，可以通过 AWS Bedrock 调用 Claude，数据不出你的 AWS 账户。适合对数据驻留有合规要求的企业。</li>
+    <li><strong>完全本地部署</strong>&mdash;&mdash;对于政府、金融等涉密场景，可以用 OpenCode + 国产模型（DeepSeek、Kimi K2），代码完全不离开内网。能力有差距，但数据安全零风险。</li>
+  </ul>
 
   <h3>知识产权</h3>
   <p>中国法院认定：AI 生成内容如果体现了使用者的独创性贡献，使用者享有完整著作权。"先学习、做方案、审方案、再让 AI 写代码"的流程，天然就是大量人类智力投入的证据。</p>
