@@ -2264,18 +2264,24 @@ optima order list --status pending --pretty</code></pre>
   <p>听完方法论，下一步是什么？取决于你的场景。</p>
 
   <h3 id="practice-existing">场景一：已有的内部项目</h3>
-  <p><strong>直接用 Claude Code，从补测试开始。</strong></p>
-  <p>存量项目最大的障碍是"没有测试、不敢动"。让 Claude Code 先给核心模块补上自动化测试，这件事零风险、立刻见效。然后写 CLAUDE.md，让 AI 理解项目。有了测试和 CLAUDE.md，后续改 bug、加功能都可以交给 AI。</p>
+  <p><strong>存量项目有三个零风险的切入点，今天就能开始。</strong></p>
+
+  <p><strong>1. 补自动化测试</strong>&mdash;&mdash;存量项目最大的障碍是"没有测试、不敢动"。让 Claude Code 先给核心模块补上测试，零风险、立刻见效。有了测试，后续改 bug、加功能都可以放心交给 AI。</p>
+
+  <p><strong>2. 写文档</strong>&mdash;&mdash;让 Claude Code 读完整个仓库，产出架构文档、API 文档、部署手册。以前写文档要一周，现在几小时。文档本身就有价值，同时 CLAUDE.md 让 AI 理解项目上下文，为后续协作打基础。</p>
+
+  <p><strong>3. 做 BI 分析</strong>&mdash;&mdash;让 Claude Code 直接读数据库、读日志，生成分析报告。不需要改任何代码，纯只读操作，零侵入。管理层立刻看到 AI 产出价值。</p>
+
   <div class="flow">
     <div class="flow-step">写 CLAUDE.md</div>
     <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">补测试</div>
+    <div class="flow-step">补测试 + 写文档 + BI</div>
     <div class="flow-arrow">&rarr;</div>
     <div class="flow-step">改 bug / 加功能</div>
     <div class="flow-arrow">&rarr;</div>
     <div class="flow-step">逐步扩大范围</div>
   </div>
-  <p>Claude Code 目前的工程能力在所有 Coding Agent 中是断层领先的。建议直接用，不要等。</p>
+  <p>三件事都是零风险、不碰生产代码，但能让团队立刻看到 AI 的产出能力。信心建立起来了，后续推进就顺了。</p>
 
   <h3 id="practice-new">场景二：新的内部项目</h3>
   <p><strong>从第一天就按 AI Native 方式搭建。</strong></p>
