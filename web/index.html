@@ -1441,7 +1441,7 @@ footer a {
   <div class="nav-section">// 实践建议</div>
   <a href="#ch-practice">三个场景，三种路径</a>
   <a href="#practice-existing" class="nav-sub">已有的内部项目</a>
-  <a href="#practice-new" class="nav-sub">新的内部项目</a>
+  <a href="#practice-new" class="nav-sub">3 人交付 20 人的活</a>
   <a href="#practice-agent" class="nav-sub">Coding Agent 产品给客户用</a>
 
   <div class="nav-section">// 附录</div>
@@ -2283,10 +2283,18 @@ optima order list --status pending --pretty</code></pre>
   </div>
   <p>三件事都是零风险、不碰生产代码，但能让团队立刻看到 AI 的产出能力。信心建立起来了，后续推进就顺了。</p>
 
-  <h3 id="practice-new">场景二：新的内部项目</h3>
-  <p><strong>从第一天就按 AI Native 方式搭建。</strong></p>
-  <p>TypeScript + Monorepo + CLAUDE.md + 自动化测试 + CI 门禁，这套基础设施从第一个 commit 就到位。然后按"先学习、再方案、再写代码"的流程推进。1-2 个开发者配 Claude Code，产出能力相当于传统团队的数倍。</p>
-  <p>新项目是最好的试验田&mdash;&mdash;没有历史包袱，可以充分发挥 AI Native 开发的全部优势。用一个项目跑通全流程，再向团队推广。</p>
+  <h3 id="practice-new">场景二：新项目，用 3 人交付 20 人的活</h3>
+  <p><strong>AI Native 开发让小团队具备大团队的交付能力。这会重塑 IT 服务的经济模型。</strong></p>
+
+  <p>挑一个真实的客户项目&mdash;&mdash;行业 SaaS、数据中台、API 中台都行&mdash;&mdash;组一个 3 人小队：</p>
+  <ul>
+    <li><strong>1 人架构师</strong>&mdash;&mdash;写 CLAUDE.md、定技术方案、做 Code Review。不写代码，只把控方向和质量。</li>
+    <li><strong>2 人 AI 操作员</strong>&mdash;&mdash;每人同时开 2-4 个 Claude Code 实例。日常工作是：拆任务、给 AI 下指令、审结果、合代码。</li>
+  </ul>
+
+  <p><strong>节奏：</strong>第 1 周只搭基础设施（TypeScript + Monorepo + CI + CLAUDE.md），不写业务代码。第 2 周开始业务开发，每天 50-70 commit 是正常速度。2-3 个月交付，传统方式要半年 20 人。</p>
+
+  <p><strong>算一笔账：</strong>成本降 70%，交付速度快一倍，利润率从 10-15% 拉到 50%+。一个项目跑通，数据本身就是最好的汇报材料。</p>
 
   <h3 id="practice-agent">场景三：做 Coding Agent 产品给客户用</h3>
   <p><strong>基于 <a href="https://github.com/opencode-ai/opencode">OpenCode</a> 构建，抢占先机。</strong></p>
