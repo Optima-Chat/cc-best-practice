@@ -751,6 +751,94 @@ tr:hover td {
 }
 
 /* ============================================
+   CLI VS API COMPARISON
+   ============================================ */
+.cli-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.cli-compare-col {
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+
+.cli-compare-col.col-bad {
+  background: rgba(255, 68, 68, 0.04);
+  border: 1px solid rgba(255, 68, 68, 0.15);
+}
+
+.cli-compare-col.col-good {
+  background: rgba(0, 255, 136, 0.04);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+}
+
+.cli-compare-col .col-header {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.col-bad .col-header { color: var(--red); }
+.col-good .col-header { color: var(--green); }
+
+.cli-compare-col .col-header .col-verdict {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.col-bad .col-verdict { background: rgba(255,68,68,0.1); color: var(--red); }
+.col-good .col-verdict { background: rgba(0,255,136,0.1); color: var(--green); }
+
+.cli-step-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cli-step-list li {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cli-step-list li:last-child { border-bottom: none; }
+
+.cli-step-list .step-num {
+  font-size: 10px;
+  color: var(--text-muted);
+  min-width: 16px;
+}
+
+.col-bad .cli-step-list li { color: rgba(255,255,255,0.4); }
+.col-good .cli-step-list li { color: var(--text); }
+
+.cli-compare-result {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.col-bad .cli-compare-result { color: var(--red); }
+.col-good .cli-compare-result { color: var(--green); }
+
+/* ============================================
    DEBUG LOOP (AI ↔ Human collaboration)
    ============================================ */
 .debug-loop {
@@ -1165,6 +1253,7 @@ footer a {
   .concept-flow { flex-direction: column; }
   .debug-loop-steps { grid-template-columns: 1fr; gap: 8px; }
   .debug-arrow { transform: rotate(90deg); }
+  .cli-compare { grid-template-columns: 1fr; }
   .concept-arrow { justify-content: center; transform: rotate(90deg); padding: 4px 0; }
 
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1209,7 +1298,7 @@ footer a {
   <a href="#ch05">05 充分理解代码原理</a>
 
   <div class="nav-section">// 团队协作</div>
-  <a href="#ch06">06 CLI First</a>
+  <a href="#ch06">06 给后端写个 CLI</a>
   <a href="#ch07">07 做团队 Dev Skills</a>
   <a href="#ch08">08 GitHub Issues 和 PR</a>
   <a href="#ch09">09 Claude Code 做 Review</a>
@@ -1764,36 +1853,54 @@ footer a {
 
 <!-- CH06 -->
 <section id="ch06">
-  <h2><span class="chapter-num">06</span>CLI First：给 AI 和人类设计同一套工具</h2>
+  <h2><span class="chapter-num">06</span>给你的后端写个 CLI</h2>
 
-  <div class="screenshot-container" id="ss-06">
-    <div class="screenshot-placeholder">截图: CLI First</div>
-    <img src="images/screenshots/06-cli.png" alt="CLI First" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  <div class="cli-compare">
+    <div class="cli-compare-col col-bad">
+      <div class="col-header">Claude Code + API <span class="col-verdict">慢且易错</span></div>
+      <ul class="cli-step-list">
+        <li><span class="step-num">1.</span> 获取 auth token</li>
+        <li><span class="step-num">2.</span> 拼 Authorization header</li>
+        <li><span class="step-num">3.</span> 构造 JSON body</li>
+        <li><span class="step-num">4.</span> 拼完整 URL + query params</li>
+        <li><span class="step-num">5.</span> 发送 curl/fetch 请求</li>
+        <li><span class="step-num">6.</span> 解析返回的 JSON</li>
+        <li><span class="step-num">7.</span> 处理错误码和异常</li>
+      </ul>
+      <div class="cli-compare-result">每一步都可能出错 ✗</div>
+    </div>
+    <div class="cli-compare-col col-good">
+      <div class="col-header">Claude Code + CLI <span class="col-verdict">快且可靠</span></div>
+      <ul class="cli-step-list">
+        <li><span class="step-num">1.</span> optima product create --title "Test" --price 29.99</li>
+      </ul>
+      <div class="cli-compare-result">一行命令，直接出结果 ✓</div>
+    </div>
   </div>
 
-  <p><strong>如果 AI 不能用，那就不算设计好了。</strong>CLI 是 AI 最自然的操作接口&mdash;&mdash;文本进、文本出，跟 AI 的工作方式天然匹配。</p>
+  <p><strong>让 Claude Code 测一遍 API 端点，远比让它跑一条 CLI 命令慢得多，也更容易出错。</strong></p>
+  <p>测 API 要处理什么？认证 token、请求头、请求体格式、URL 拼接、错误码解析&mdash;&mdash;每一步都可能出问题。但 CLI 就是一行命令、一段输出，Claude Code 天然擅长。</p>
 
-  <h3><a href="https://github.com/Optima-Chat/commerce-cli">commerce-cli</a>：19 个模块，151 命令</h3>
-  <p>封装了整个电商系统的所有操作能力。product、order、inventory、shipping、collection、variant、review、homepage、i18n、auth、refund、merchant、transfer、checkout、easyship&hellip;</p>
+  <h3>CLI 让 Claude Code 能随意组合测试</h3>
+  <p>有了 CLI，你可以直接在 Claude Code 里按任意需要组合功能来测试。不需要写测试脚本，不需要配 Postman，想测什么直接说。</p>
 
-  <pre><code># 人类在终端里操作
-optima order get ORD-12345 --pretty
-optima product list --status active --pretty
+  <pre><code># 创建商品 → 设置库存 → 创建订单 → 全流程验证
+optima product create --title "Test" --price 29.99
+optima inventory set --sku SKU-001 --quantity 100
+optima order create --items '[{"sku":"SKU-001","qty":1}]'
+optima order list --status pending --pretty</code></pre>
 
-# AI Agent 自动运营
-optima i18n product create --product-id 12345 --locale zh-CN
-optima refund approve REF-67890</code></pre>
+  <p>同样的流程如果走 API，Claude Code 需要处理认证、拼 curl、解析返回值，每一步都可能卡住。<strong>CLI 把这些全部封装了。</strong></p>
 
-  <p>同一套命令，两种用户，零额外开发成本。</p>
+  <h3>案例：<a href="https://github.com/Optima-Chat/commerce-cli">commerce-cli</a></h3>
+  <p>我们给 commerce-backend 写了完整的 CLI 封装：19 个模块、280+ 条命令，覆盖商品、订单、库存、物流、退款、国际化等全部操作。</p>
+  <p>写 CLI 本身也是 Claude Code 最擅长的事&mdash;&mdash;纯逻辑、纯文本、不涉及 UI，一次性通过率非常高。我们的 CLI 模块基本都是 Claude Code 一次写完的。</p>
 
-  <h3>双输出设计</h3>
-  <p>默认 JSON（AI 用），<code>--pretty</code> 人类可读。一个小改动，<strong>AI 使用同样命令时 token 消耗直接减少 50% 以上</strong>。</p>
-
-  <h3>架构演进：从 MCP 到 Agent + CLI</h3>
-  <p>早期用 MCP 协议，但发现每个能力要实现两次。155+ 个操作维护两套接口不可接受。关键决策：<strong>砍掉 MCP 层，全部走 CLI。</strong></p>
+  <h3>额外收益：CLI 可以直接给 AI Agent 用</h3>
+  <p>我们最初写 CLI 是为了给 Claude Code 的 Skills 调用，替代 MCP 协议。但发现这套 CLI 同时解决了开发测试、人工运营、AI Agent 自动化三个场景。一套命令，三种用户。</p>
 
   <div class="highlight-box">
-    <p><strong>每个新系统能力都应该问："AI 能不能直接用？"如果不能，设计就需要重新考虑。</strong></p>
+    <p><strong>写个 CLI 永远不亏。Claude Code 写得快、测得准、还能直接复用给 AI Agent。</strong></p>
   </div>
 </section>
 
