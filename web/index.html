@@ -2205,6 +2205,7 @@ optima order list --status pending --pretty</code></pre>
     <li><strong>不做方案直接让 AI 写</strong>&mdash;&mdash;改了五六轮推倒重来，技术方案做好后 30 分钟一次通过</li>
     <li><strong>多开合并冲突</strong>&mdash;&mdash;两个实例改了同一个公共模块，花了大半天理清。教训：公共模块只能由一个实例修改</li>
     <li><strong>"看起来对但逻辑错"</strong>&mdash;&mdash;复杂业务规则（退款涉及库存回滚、运费退还、优惠券恢复），AI 可能漏掉其中一步</li>
+    <li><strong>UI 开发：精确复现设计稿仍是难点</strong>&mdash;&mdash;后端逻辑、CLI、测试这些 AI 写得很好，但前端要精确还原设计稿（像素级对齐、交互细节、响应式适配）目前仍有明显差距。这不只是我们的问题&mdash;&mdash;阿里、字节、百度、腾讯都在投入多模态 Coding Agent 研究，港科大 iSING Lab 与阿里合作的<a href="https://github.com/global-optima-research/coding-agent-benchmark/blob/main/analysis/proposal.md">课题</a>显示：文本 Coding Agent 准确率已接近 80%，但引入视觉输入（截图→代码）后降到 36%，差距仍有 43 个百分点。这是当前整个行业的研究热点。</li>
   </ul>
 
   <h3>关于代码质量</h3>
