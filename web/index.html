@@ -569,6 +569,185 @@ tr:hover td {
 }
 
 /* ============================================
+   CONCEPT FLOW (learn → plan → code)
+   ============================================ */
+.concept-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 28px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.concept-phase {
+  flex: 1;
+  padding: 24px 20px 20px;
+  position: relative;
+  text-align: center;
+}
+
+.concept-phase .phase-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.phase-learn .phase-bar { background: var(--blue); }
+.phase-plan .phase-bar { background: var(--amber); }
+.phase-code .phase-bar { background: var(--green); }
+
+.concept-phase .phase-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.concept-phase .phase-title {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.phase-learn .phase-title { color: var(--blue); }
+.phase-plan .phase-title { color: var(--amber); }
+.phase-code .phase-title { color: var(--green); }
+
+.concept-phase .phase-time {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.concept-phase .phase-desc {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.concept-phase .phase-output {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.concept-phase .phase-pct {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.05);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.concept-arrow {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-muted);
+  padding: 0 2px;
+}
+
+/* ============================================
+   INFRA TRIO (TS + Monorepo + CLAUDE.md)
+   ============================================ */
+.infra-trio {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 28px 0;
+}
+
+.infra-cards {
+  display: flex;
+  gap: 12px;
+}
+
+.infra-trio .infra-card {
+  flex: 1;
+  padding: 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.infra-card .infra-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.infra-card .infra-title {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.infra-card .infra-role {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+.infra-card .infra-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.infra-card .infra-stat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.infra-formula {
+  text-align: center;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.infra-formula .infra-plus {
+  color: var(--text-muted);
+  margin: 0 8px;
+}
+
+.infra-formula .infra-eq {
+  color: var(--text-muted);
+  margin: 0 12px;
+}
+
+.infra-formula .infra-result {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 16px;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+}
+
+/* ============================================
    PART 0: METRICS GRID (glowing number cards)
    ============================================ */
 .metrics-grid {
@@ -888,6 +1067,10 @@ footer a {
   section h2 { font-size: 22px; }
   section h3 { font-size: 17px; }
 
+  .infra-cards { flex-direction: column; }
+  .concept-flow { flex-direction: column; }
+  .concept-arrow { justify-content: center; transform: rotate(90deg); padding: 4px 0; }
+
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
   .metric-card .metric-number { font-size: 28px; }
 
@@ -1202,9 +1385,41 @@ footer a {
 <section id="ch01">
   <h2><span class="chapter-num">01</span>先学习、再做方案、再写代码</h2>
 
-  <div class="screenshot-container" id="ss-01">
-    <div class="screenshot-placeholder">截图: learn-plan-code 工作流</div>
-    <img src="images/screenshots/01-learn.png" alt="Learn Plan Code" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  <div class="concept-flow">
+    <div class="concept-phase phase-learn">
+      <div class="phase-bar"></div>
+      <div class="phase-content">
+        <div class="phase-icon">📚</div>
+        <div class="phase-title">学习</div>
+        <div class="phase-time">1-2 小时</div>
+        <div class="phase-desc">拿 Claude Code 当老师<br>追问到能评判方案好坏</div>
+        <div class="phase-output">产出：知识储备 · 学习文档</div>
+      </div>
+      <div class="phase-pct">70%+ 时间</div>
+    </div>
+    <div class="concept-arrow">→</div>
+    <div class="concept-phase phase-plan">
+      <div class="phase-bar"></div>
+      <div class="phase-content">
+        <div class="phase-icon">📐</div>
+        <div class="phase-title">技术方案</div>
+        <div class="phase-time">2-4 小时</div>
+        <div class="phase-desc">架构设计 · 模块拆分<br>边界条件 · 验收标准</div>
+        <div class="phase-output">产出：1000+ 行技术文档</div>
+      </div>
+    </div>
+    <div class="concept-arrow">→</div>
+    <div class="concept-phase phase-code">
+      <div class="phase-bar"></div>
+      <div class="phase-content">
+        <div class="phase-icon">⌨️</div>
+        <div class="phase-title">写代码</div>
+        <div class="phase-time">0.5-2 小时</div>
+        <div class="phase-desc">Claude Code 执行方案<br>一次性通过率极高</div>
+        <div class="phase-output">产出：功能代码 + 测试</div>
+      </div>
+      <div class="phase-pct">最短环节</div>
+    </div>
   </div>
 
   <h3>为什么这是第一条</h3>
@@ -1260,9 +1475,33 @@ footer a {
 <section id="ch02">
   <h2><span class="chapter-num">02</span>选对工程基础设施</h2>
 
-  <div class="screenshot-container" id="ss-02">
-    <div class="screenshot-placeholder">截图: 工程基础设施选择</div>
-    <img src="images/screenshots/02-infra.png" alt="Engineering Infrastructure" style="display:none" onload="this.style.display='block';this.parentElement.classList.add('has-image')">
+  <div class="infra-trio">
+    <div class="infra-cards">
+    <div class="infra-card">
+      <div class="infra-icon">🔷</div>
+      <div class="infra-title">TypeScript</div>
+      <div class="infra-role">类型安全</div>
+      <div class="infra-desc">训练数据最多，AI 一次性通过率最高。静态类型是 AI 代码质量的第一道防线。</div>
+      <div class="infra-stat">30 个仓库全部 TS</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-icon">📦</div>
+      <div class="infra-title">Monorepo</div>
+      <div class="infra-role">上下文共享</div>
+      <div class="infra-desc">Claude Code 只能看当前仓库。Monorepo 让它自然看到所有相关代码，前后端一次改完。</div>
+      <div class="infra-stat">5 包 Monorepo × 多个仓库</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-icon">📋</div>
+      <div class="infra-title">CLAUDE.md</div>
+      <div class="infra-role">项目知识</div>
+      <div class="infra-desc">隐性知识显性化。架构、约定、陷阱、流程，一份文件让 AI 理解整个项目。</div>
+      <div class="infra-stat">最长 1,062 行</div>
+    </div>
+    </div>
+    <div class="infra-formula">
+      <span>类型安全</span> <span class="infra-plus">+</span> <span>上下文共享</span> <span class="infra-plus">+</span> <span>项目知识</span> <span class="infra-eq">=</span> <span class="infra-result">质变</span>
+    </div>
   </div>
 
   <p>三个关键选择决定了效率天花板：<strong>TypeScript、Monorepo、CLAUDE.md</strong>。</p>
